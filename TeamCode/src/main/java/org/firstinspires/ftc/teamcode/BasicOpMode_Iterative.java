@@ -110,6 +110,7 @@ public class BasicOpMode_Iterative extends OpMode
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
+        //This is a change I made to this code. Wheeeeeeeeeeeeee!!!!!
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
