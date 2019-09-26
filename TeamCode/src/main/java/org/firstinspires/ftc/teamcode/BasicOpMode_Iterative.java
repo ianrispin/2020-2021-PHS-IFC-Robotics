@@ -60,6 +60,7 @@ public class BasicOpMode_Iterative extends OpMode
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
     private Servo testServo = null;
+    private DcMotor testMotor = null;
     static final double INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
     static final int    CYCLE_MS    =   50;     // period of each cycle
     static final double MAX_POS     =  1.0;     // Maximum rotational position
@@ -79,6 +80,7 @@ public class BasicOpMode_Iterative extends OpMode
 //        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
 //        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         testServo = hardwareMap.get(Servo.class,"testServo");
+        testMotor = hardwareMap.get(DcMotor.class, "testMotor");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
 //        leftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -111,6 +113,7 @@ public class BasicOpMode_Iterative extends OpMode
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
+        double generalPower = gamepad1.left_stick_y;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -122,7 +125,7 @@ public class BasicOpMode_Iterative extends OpMode
 //        double turn  =  gamepad1.right_stick_x;
 //        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
 //        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-//
+           testMotor.setPower(generalPower);
 //        // Tank Mode uses one stick to control each wheel.
 //        // - This requires no math, but it is hard to drive forward slowly and keep straight.
 //        // leftPower  = -gamepad1.left_stick_y ;
