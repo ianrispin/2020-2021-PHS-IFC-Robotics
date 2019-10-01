@@ -102,9 +102,9 @@ public class ConceptHolonomicDrive extends OpMode {
          * Telemetry for debugging
          */
         telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("Joy XL YL XR",  String.format("%.2f", gamepad1LeftX) + " " +
-                String.format("%.2f", gamepad1LeftY) + " " +  String.format("%.2f", gamepad1RightX));
-        telemetry.addData("f left pwr",  "front left  pwr: " + String.format("%.2f", FrontLeft));
+        telemetry.addData("Joy XL YL XR", String.format("%.2f", gamepad1LeftX) + " " +
+                String.format("%.2f", gamepad1LeftY) + " " + String.format("%.2f", gamepad1RightX));
+        telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", FrontLeft));
         telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
         telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
@@ -121,9 +121,9 @@ public class ConceptHolonomicDrive extends OpMode {
      * scaled value is less than linear.  This is to make it easier to drive
      * the robot more precisely at slower speeds.
      */
-    double scaleInput(double dVal)  {
-        double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
-                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
+    double scaleInput(double dVal) {
+        double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
+                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
 
         // get the corresponding index for the scaleInput array.
         int index = (int) (dVal * 16.0);
@@ -149,5 +149,5 @@ public class ConceptHolonomicDrive extends OpMode {
         // return scaled value.
         return dScale;
     }
-
 }
+
