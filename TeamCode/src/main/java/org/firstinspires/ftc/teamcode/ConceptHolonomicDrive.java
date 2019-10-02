@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /*
@@ -78,12 +80,27 @@ public class ConceptHolonomicDrive extends OpMode {
         float gamepad1LeftX = gamepad1.left_stick_x;
         float gamepad1RightX = gamepad1.right_stick_x;
 
+        driveWithInput(gamepad1LeftX,gamepad1LeftY,gamepad1RightX);
         // holonomic formulas
 
-        float FrontLeft = -gamepad1LeftY - gamepad1LeftX - gamepad1RightX;
-        float FrontRight = gamepad1LeftY - gamepad1LeftX - gamepad1RightX;
-        float BackRight = gamepad1LeftY + gamepad1LeftX - gamepad1RightX;
-        float BackLeft = -gamepad1LeftY + gamepad1LeftX - gamepad1RightX;
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+    /*
+     * This method scales the joystick input so for low joystick values, the
+     * scaled value is less than linear.  This is to make it easier to drive
+     * the robot more precisely at slower speeds.
+     */
+    public void driveWithInput(float directionX,float directionY,float rotation){//direction refers to values that would be seen on a gamepad.
+        float FrontLeft = -directionY - directionX - rotation;
+        float FrontRight = directionY - directionX - rotation;
+        float BackRight = directionY + directionX - rotation;
+        float BackLeft = -directionY + directionX - rotation;
 
         // clip the right/left values so that the values never exceed +/- 1
         FrontRight = Range.clip(FrontRight, -1, 1);
@@ -102,25 +119,23 @@ public class ConceptHolonomicDrive extends OpMode {
          * Telemetry for debugging
          */
         telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("Joy XL YL XR", String.format("%.2f", gamepad1LeftX) + " " +
-                String.format("%.2f", gamepad1LeftY) + " " + String.format("%.2f", gamepad1RightX));
+        telemetry.addData("Joy XL YL XR", String.format("%.2f", directionX) + " " +
+                String.format("%.2f", directionY) + " " + String.format("%.2f", directionX));
         telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", FrontLeft));
         telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
         telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
 
     }
+    public void driveForTime(float directionX,float directionY,float rotation,double moveDuration){//going to optomise this to make it better for turning
+        boolean finished = false;
+        Timer whenDone = new Timer();
+        TimerTask t = new MovementTimer();
+        whenDone.schedule(t,(long)moveDuration * 1000);
+        while(t.finished == false) {
 
-    @Override
-    public void stop() {
-
+        }
     }
-
-    /*
-     * This method scales the joystick input so for low joystick values, the
-     * scaled value is less than linear.  This is to make it easier to drive
-     * the robot more precisely at slower speeds.
-     */
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                 0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
