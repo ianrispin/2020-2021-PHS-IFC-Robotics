@@ -10,4 +10,5 @@ public class MovementTimer extends TimerTask {
     public void run(){
         finished = true;
     }
+
 }

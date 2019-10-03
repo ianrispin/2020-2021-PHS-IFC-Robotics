@@ -15,6 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
+
 /*
 	Holonomic concepts from:
 	http://www.vexforum.com/index.php/12370-holonomic-drives-2-0-a-video-tutorial-by-cody/0
@@ -128,13 +129,19 @@ public class ConceptHolonomicDrive extends OpMode {
 
     }
     public void driveForTime(float directionX,float directionY,float rotation,double moveDuration){//going to optomise this to make it better for turning
-        boolean finished = false;
+
         Timer whenDone = new Timer();
-        TimerTask t = new MovementTimer();
+
+        MovementTimer t = new MovementTimer();
+//        boolean finished = t.finished;
         whenDone.schedule(t,(long)moveDuration * 1000);
-        while(t.finished == false) {
+        while(!t.finished) {
+            driveWithInput(directionX,directionY,rotation);
 
         }
+
+
+//        whenDone.schedule(new TimerTask());
     }
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
