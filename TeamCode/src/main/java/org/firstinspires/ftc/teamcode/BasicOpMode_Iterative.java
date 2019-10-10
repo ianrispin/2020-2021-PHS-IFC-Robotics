@@ -59,7 +59,7 @@ public class BasicOpMode_Iterative extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
-    private Servo testServo = null;
+//    private Servo testServo = null;
     private DcMotor testMotor = null;
     static final double INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
     static final int    CYCLE_MS    =   50;     // period of each cycle
@@ -79,8 +79,8 @@ public class BasicOpMode_Iterative extends OpMode
         // step (using the FTC Robot Controller app on the phone).
 //        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
 //        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        testServo = hardwareMap.get(Servo.class,"testServo");
-        testMotor = hardwareMap.get(DcMotor.class, "testMotor");
+//        testServo = hardwareMap.get(Servo.class,"testServo");
+//        testMotor = hardwareMap.get(DcMotor.class, "testMotor");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
 //        leftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -125,7 +125,7 @@ public class BasicOpMode_Iterative extends OpMode
 //        double turn  =  gamepad1.right_stick_x;
 //        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
 //        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-           testMotor.setPower(generalPower);
+//           testMotor.setPower(generalPower);
 //        // Tank Mode uses one stick to control each wheel.
 //        // - This requires no math, but it is hard to drive forward slowly and keep straight.
 //        // leftPower  = -gamepad1.left_stick_y ;
