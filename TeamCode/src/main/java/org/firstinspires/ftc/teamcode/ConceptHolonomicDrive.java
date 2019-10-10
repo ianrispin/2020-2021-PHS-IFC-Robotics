@@ -84,6 +84,9 @@ public class ConceptHolonomicDrive extends OpMode {
 
         driveWithInput(gamepad1LeftX,gamepad1LeftY,gamepad1RightX);
         // holonomic formulas
+        if (gamepad1LeftY !== 0) {
+            getColor();
+        }
 
 
     }
