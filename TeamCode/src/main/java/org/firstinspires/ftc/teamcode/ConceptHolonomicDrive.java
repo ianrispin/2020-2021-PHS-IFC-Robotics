@@ -80,13 +80,21 @@ public class ConceptHolonomicDrive extends OpMode {
         float gamepad1LeftY = -gamepad1.left_stick_y;
         float gamepad1LeftX = gamepad1.left_stick_x;
         float gamepad1RightX = gamepad1.right_stick_x;
-
-
-        driveWithInput(gamepad1LeftX,gamepad1LeftY,gamepad1RightX);
-        // holonomic formulas
-        if (gamepad1LeftY !== 0) {
-            getColor();
+        if(gamepad1.a){
+            driveWithInput(0,-1,0);
+        }else if(gamepad1.y){
+            driveWithInput(0,1,0);
+        }else if(gamepad1.x){
+            driveWithInput(-1,0,0);
+        }else if(gamepad1.b){
+            driveWithInput(1,0,0);
+        }else {
+            driveWithInput(gamepad1LeftX, gamepad1LeftY, gamepad1RightX);
         }
+        // holonomic formulas
+//        if (gamepad1LeftY !== 0) {
+//            getColor();
+//        }
 
 
     }
