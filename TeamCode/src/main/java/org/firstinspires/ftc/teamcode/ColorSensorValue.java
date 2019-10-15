@@ -1,5 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
-
+package org.firstinspires.ftc.teamcode;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
@@ -11,14 +10,15 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.ConceptHolonomicDrive;
 
 import java.util.Locale;
 
-public class ColorSensorValue extends SensorREVColorDistance {
+public class ColorSensorValue extends ConceptHolonomicDrive {
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
 
-    public getColor() {
+    public float[] getColor() {
         // get a reference to the color sensor.
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
 
@@ -40,7 +40,7 @@ public class ColorSensorValue extends SensorREVColorDistance {
                 (int) (sensorColor.blue() * SCALE_FACTOR),
                 hsvValues);
 
-        return values[]
+        return values;
     }
 
     public static void main(String[] args) {
