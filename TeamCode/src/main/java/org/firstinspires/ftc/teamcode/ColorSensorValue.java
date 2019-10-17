@@ -40,6 +40,7 @@ public class ColorSensorValue extends ConceptHolonomicDrive {
                 (int) (sensorColor.blue() * SCALE_FACTOR),
                 hsvValues);
 
+        relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
         return values;
     }
 
