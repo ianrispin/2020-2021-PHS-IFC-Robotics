@@ -38,6 +38,7 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorFrontLeft;
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
+    ColorSensorValue ourColorSensor = new ColorSensorValue();
 
     /**
      * Constructor
@@ -61,6 +62,7 @@ public class ConceptHolonomicDrive extends OpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+
         //These work without reversing (Tetrix motors).
         //AndyMark motors may be opposite, in which case uncomment these lines:
         //motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -92,6 +94,9 @@ public class ConceptHolonomicDrive extends OpMode {
             driveWithInput(gamepad1LeftX, gamepad1LeftY, gamepad1RightX);
         }
         // holonomic formulas
+        if(gamepad1.right_bumper){
+            ourColorSensor.getColor();
+        }
 //        if (gamepad1LeftY !== 0) {
 //            getColor();
 //        }
@@ -116,10 +121,10 @@ public class ConceptHolonomicDrive extends OpMode {
         float BackLeft = -directionY + directionX - rotation;
 
         // clip the right/left values so that the values never exceed +/- 1
-        FrontRight = Range.clip(FrontRight, -1, 1);
-        FrontLeft = Range.clip(FrontLeft, -1, 1);
-        BackLeft = Range.clip(BackLeft, -1, 1);
-        BackRight = Range.clip(BackRight, -1, 1);
+//        FrontRight = Range.clip(FrontRight, -1, 1);
+//        FrontLeft = Range.clip(FrontLeft, -1, 1);
+//        BackLeft = Range.clip(BackLeft, -1, 1);
+//        BackRight = Range.clip(BackRight, -1, 1);
 
         // write the values to the motors
         motorFrontRight.setPower(FrontRight);
