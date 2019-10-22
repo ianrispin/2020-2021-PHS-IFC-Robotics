@@ -38,7 +38,7 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorFrontLeft;
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
-    ColorSensorValue ourColorSensor = new ColorSensorValue();
+//    ColorSensorValue ourColorSensor = new ColorSensorValue();
 
     /**
      * Constructor
@@ -95,7 +95,7 @@ public class ConceptHolonomicDrive extends OpMode {
         }
         // holonomic formulas
         if(gamepad1.right_bumper){
-            ourColorSensor.getColor();
+//            ourColorSensor.getColor();
         }
 //        if (gamepad1LeftY !== 0) {
 //            getColor();

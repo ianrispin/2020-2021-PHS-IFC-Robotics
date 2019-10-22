@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -67,6 +69,8 @@ public class BasicOpMode_Iterative extends OpMode
     static final double MIN_POS     =  0.0;
     double  position = (MAX_POS - MIN_POS) / 2; // Start at halfway position
     boolean rampUp = true;
+    ColorSensorValue ourColorSensor = new ColorSensorValue();
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -115,6 +119,11 @@ public class BasicOpMode_Iterative extends OpMode
         double rightPower;
         double generalPower = gamepad1.left_stick_y;
 
+
+        if(gamepad1.right_bumper){
+            telemetry.addData("foundColor", Color.HSVToColor(0xff, ourColorSensor.getColor()));
+
+        }
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
 
