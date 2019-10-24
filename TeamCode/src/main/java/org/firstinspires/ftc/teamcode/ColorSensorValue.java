@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.ConceptHolonomicDrive;
 
@@ -43,7 +44,11 @@ public class ColorSensorValue extends ConceptHolonomicDrive {
                 (int) (sensorColor.blue() * SCALE_FACTOR),
                 hsvValues);
 
-        relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+        relativeLayout.post(new Runnable() {
+            public void run() {
+                relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+            }
+        });
         return values;
     }
 

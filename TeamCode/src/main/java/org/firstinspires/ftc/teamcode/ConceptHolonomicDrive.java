@@ -38,7 +38,7 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorFrontLeft;
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
-//    ColorSensorValue ourColorSensor = new ColorSensorValue();
+    ColorSensorValue ourColorSensor = new ColorSensorValue();
 
     /**
      * Constructor
@@ -78,6 +78,7 @@ public class ConceptHolonomicDrive extends OpMode {
 
         // left stick controls direction
         // right stick X controls rotation
+        float foundColor = 0;
 
         float gamepad1LeftY = -gamepad1.left_stick_y;
         float gamepad1LeftX = gamepad1.left_stick_x;
@@ -95,11 +96,13 @@ public class ConceptHolonomicDrive extends OpMode {
         }
         // holonomic formulas
         if(gamepad1.right_bumper){
-//            ourColorSensor.getColor();
+            foundColor = ourColorSensor.getColor()[0];
         }
 //        if (gamepad1LeftY !== 0) {
 //            getColor();
 //        }
+        telemetry.addData("Found Hue", "found " + String.format("%.2f", foundColor));
+
 
 
     }

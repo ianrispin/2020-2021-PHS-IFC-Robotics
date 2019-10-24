@@ -121,7 +121,7 @@ public class BasicOpMode_Iterative extends OpMode
 
 
         if(gamepad1.right_bumper){
-            telemetry.addData("foundColor", Color.HSVToColor(0xff, ourColorSensor.getColor()));
+//            telemetry.addData("foundColor", Color.HSVToColor(0xff, ourColorSensor.getColor()));
 
         }
         // Choose to drive using either Tank Mode, or POV Mode
