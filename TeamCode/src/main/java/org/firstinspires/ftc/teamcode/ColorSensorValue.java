@@ -17,39 +17,49 @@ import java.util.Locale;
 
 public class ColorSensorValue extends ConceptHolonomicDrive {
     ColorSensor sensorColor;
-    DistanceSensor sensorDistance;
 
-    public float[] getColor() {
-        // get a reference to the color sensor.
-        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+//    DistanceSensor sensorDistance;
+//    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+//    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
+    // hsvValues is an array that will hold the hue, saturation, and value information.
+    float hsvValues[] = {0F, 0F, 0F};
+
+    // values is a reference to the hsvValues array.
+    final float values[] = hsvValues;
+
+    // sometimes it helps to multiply the raw RGB values with a scale factor
+    // to amplify/attentuate the measured values.
+    final double SCALE_FACTOR = 255;
+    public void init(){
+//        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+
+
+
 
         // get a reference to the distance sensor that shares the same name.
-        sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
+//        sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
 
-        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 
-        // hsvValues is an array that will hold the hue, saturation, and value information.
-        float hsvValues[] = {0F, 0F, 0F};
+    }
 
-        // values is a reference to the hsvValues array.
-        final float values[] = hsvValues;
 
-        // sometimes it helps to multiply the raw RGB values with a scale factor
-        // to amplify/attentuate the measured values.
-        final double SCALE_FACTOR = 255;
+    public float[] getColor() {
+        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+        // get a reference to the color sensor.
+
 
         Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                 (int) (sensorColor.green() * SCALE_FACTOR),
                 (int) (sensorColor.blue() * SCALE_FACTOR),
                 hsvValues);
 
-        relativeLayout.post(new Runnable() {
-            public void run() {
-                relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
-            }
-        });
-        return values;
+//        relativeLayout.post(new Runnable() {
+//            public void run() {
+//                relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+//            }
+//        });
+        return hsvValues;
     }
 
     public static void main(String[] args) {
