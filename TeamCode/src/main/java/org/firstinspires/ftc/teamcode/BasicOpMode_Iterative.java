@@ -69,7 +69,7 @@ public class BasicOpMode_Iterative extends OpMode
     static final double MIN_POS     =  0.0;
     double  position = (MAX_POS - MIN_POS) / 2; // Start at halfway position
     boolean rampUp = true;
-    ColorSensorValue ourColorSensor = new ColorSensorValue();
+//    ColorSensorValue ourColorSensor = new ColorSensorValue();
 
     /*
      * Code to run ONCE when the driver hits INIT
