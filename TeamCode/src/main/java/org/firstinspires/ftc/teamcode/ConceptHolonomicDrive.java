@@ -18,6 +18,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 import java.util.Timer;
 import java.util.TimerTask;
+import android.media.MediaPlayer;
 
 
 
@@ -44,6 +45,7 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
+
 // hsvValues is an array that will hold the hue, saturation, and value information.
 float hsvValues[] = {0F, 0F, 0F};
 
@@ -54,8 +56,10 @@ float hsvValues[] = {0F, 0F, 0F};
     // to amplify/attentuate the measured values.
     final double SCALE_FACTOR = 255;
 
-    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+    int relativeLayoutId;
+    View relativeLayout;
+
+    MediaPlayer alert;
     /**
      * Constructor
      */
@@ -73,12 +77,16 @@ float hsvValues[] = {0F, 0F, 0F};
          * configured your robot and created the configuration file.
          */
 
-
+//        MediaPlayer mediaPlayer = MediaPlayer.create(FtcRobotControllerActivity.getContext(), R.raw.sound_file);
+//        mediaPlayer.start();
         motorFrontRight = hardwareMap.dcMotor.get("motor front right");
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+        relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+        relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
 //        ourColorSensor = new ColorSensorValue();
         //These work without reversing (Tetrix motors).
         //AndyMark motors may be opposite, in which case uncomment these lines:

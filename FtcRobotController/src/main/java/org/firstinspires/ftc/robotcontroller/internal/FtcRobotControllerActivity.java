@@ -175,13 +175,19 @@ public class FtcRobotControllerActivity extends Activity
 
   private WifiDirectChannelChanger wifiDirectChannelChanger;
 
-  protected class RobotRestarter implements Restarter {
+    protected static Context myContext;
+
+
+    protected class RobotRestarter implements Restarter {
 
     public void requestRestart() {
       requestRobotRestart();
     }
 
   }
+    public static Context getContext() {
+      return myContext;
+    }
 
   protected boolean serviceShouldUnbind = false;
   protected ServiceConnection connection = new ServiceConnection() {
@@ -288,6 +294,11 @@ public class FtcRobotControllerActivity extends Activity
         AndroidBoard.getInstance().getAndroidBoardIsPresentPin().setState(true);
       }
     }
+
+    //mything
+    myContext = this;
+
+
 
     context = this;
     utility = new Utility(this);
