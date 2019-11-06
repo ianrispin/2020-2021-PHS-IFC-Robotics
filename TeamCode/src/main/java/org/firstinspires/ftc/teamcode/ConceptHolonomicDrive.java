@@ -59,7 +59,8 @@ float hsvValues[] = {0F, 0F, 0F};
     int relativeLayoutId;
     View relativeLayout;
 
-    MediaPlayer alert;
+
+    MediaPlayer mediaPlayer;
     /**
      * Constructor
      */
@@ -86,6 +87,8 @@ float hsvValues[] = {0F, 0F, 0F};
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
+        mediaPlayer.start();
 
 //        ourColorSensor = new ColorSensorValue();
         //These work without reversing (Tetrix motors).
@@ -134,6 +137,7 @@ float hsvValues[] = {0F, 0F, 0F};
 
     @Override
     public void stop() {
+        mediaPlayer.stop();
 
     }
 
