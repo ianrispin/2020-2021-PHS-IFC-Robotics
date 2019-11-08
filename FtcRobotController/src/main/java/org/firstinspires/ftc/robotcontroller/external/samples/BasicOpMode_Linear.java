@@ -78,6 +78,11 @@ public class BasicOpMode_Linear extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
+        while(runtime.time() < 31){
+
+        }
+
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
