@@ -126,6 +126,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         while(!(getColor()[0] > 210 || getColor()[0] < 255)){
             driveWithInput(-1,0,0);
         }
+        driveWithInput(0, 0, 0);
         while(opModeIsActive()){}
         mediaPlayer.stop();
 
@@ -227,6 +228,8 @@ public class Blue_Start_Quarry extends LinearOpMode {
             driveWithInput(directionX,directionY,rotation);
 
         }
+        driveWithInput(0, 0, 0);
+
 
 
 //        whenDone.schedule(new TimerTask());
