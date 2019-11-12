@@ -19,6 +19,7 @@ import com.qualcomm.robotcore.util.Range;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.media.MediaPlayer;
+import java.lang.Math;
 
 
 
@@ -84,6 +85,14 @@ float hsvValues[] = {0F, 0F, 0F};
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        motorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
@@ -108,9 +117,21 @@ float hsvValues[] = {0F, 0F, 0F};
         // right stick X controls rotation
         float foundColor = 0;
 
-        float gamepad1LeftY = -gamepad1.left_stick_y;
-        float gamepad1LeftX = gamepad1.left_stick_x;
+//        float gamepad1LeftY = -gamepad1.left_stick_y;
+//        float gamepad1LeftX = gamepad1.left_stick_x;
         float gamepad1RightX = gamepad1.right_stick_x;
+        float Xmove;
+        float Ymove;
+        if(gamepad1.left_stick_y != 0) {
+             Ymove = (float) ((-gamepad1.left_stick_y) / Math.abs(gamepad1.left_stick_y) * Math.sqrt(Math.abs(gamepad1.left_stick_y)));
+        }else{
+             Ymove = 0;
+        }
+        if(gamepad1.left_stick_x != 0) {
+             Xmove = (float) ((gamepad1.left_stick_x) / Math.abs(gamepad1.left_stick_x) * Math.sqrt(Math.abs(gamepad1.left_stick_x)));
+        }else{
+             Xmove = 0;
+        }
         if(gamepad1.a){
             driveWithInput(0,-1,0);
         }else if(gamepad1.y){
@@ -120,7 +141,7 @@ float hsvValues[] = {0F, 0F, 0F};
         }else if(gamepad1.b){
             driveWithInput(1,0,0);
         }else {
-            driveWithInput(gamepad1LeftX, gamepad1LeftY, gamepad1RightX);
+            driveWithInput(Xmove, Ymove, gamepad1RightX);
         }
         // holonomic formulas
         if(gamepad1.right_bumper){

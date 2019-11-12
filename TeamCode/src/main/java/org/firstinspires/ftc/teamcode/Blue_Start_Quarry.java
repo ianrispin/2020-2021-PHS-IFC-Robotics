@@ -58,7 +58,7 @@ import java.util.Timer;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@TeleOp(name="Blue: Start Quarry", group="Linear Opmode")
 //@Disabled
 public class Blue_Start_Quarry extends LinearOpMode {
 
