@@ -124,6 +124,7 @@ public class Red_Start_Quarry extends LinearOpMode {
 //            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
                 driveWithInput(1, 0, 0);
             }
+        driveWithInput(0,0,0);
             while(opModeIsActive()){}
             mediaPlayer.stop();
             //while(!(getColor()[0] <20) and !(getColor()[0] > 350)
@@ -224,6 +225,7 @@ public class Red_Start_Quarry extends LinearOpMode {
             driveWithInput(directionX, directionY, rotation);
 
         }
+        driveWithInput(0,0,0);
 
 
 //        whenDone.schedule(new TimerTask());
