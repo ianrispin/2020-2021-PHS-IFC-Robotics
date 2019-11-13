@@ -121,9 +121,20 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
         }
                 mediaPlayer.start();
+// actual autonomous psudocode
+//        driveForTime(0,1, 0 , .2);
+        //Timer moveLimit = new Timer();
+        //boolean TimeUp = false;
+        //moveLimit.schedule(new TimerTask(){TimeUp = true}, 2000);
+        //while(!TimeUp and !(getColor(frontSensor)[2] < 15)){
+        //driveWithInput(-1,0,0)
+        //}
+        //driveForTime(-1,0,0,.1)
+        //driveForTime(0,1,0,.3)
+        //dr
 
         driveForTime(0,1,0,.1);
-        while(!(getColor()[0] > 210 || getColor()[0] < 255)){
+        while(!(getColor(sensorColor)[0] > 210 || getColor(sensorColor)[0] < 255)){
             driveWithInput(-1,0,0);
         }
         driveWithInput(0, 0, 0);
@@ -169,14 +180,14 @@ public class Blue_Start_Quarry extends LinearOpMode {
     }
 
 
-    public float[] getColor() {
+    public float[] getColor(ColorSensor sensor) {
 //        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         // get a reference to the color sensor.
 
 
-        Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                (int) (sensorColor.green() * SCALE_FACTOR),
-                (int) (sensorColor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (sensor.red() * SCALE_FACTOR),
+                (int) (sensor.green() * SCALE_FACTOR),
+                (int) (sensor.blue() * SCALE_FACTOR),
                 hsvValues);
 
         relativeLayout.post(new Runnable() {
