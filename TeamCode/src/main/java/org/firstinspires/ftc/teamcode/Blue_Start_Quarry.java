@@ -133,7 +133,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         //driveForTime(0,1,0,.3)
         //dr
 
-        driveForTime(0,1,0,.1);
+
         while(!(getColor(sensorColor)[0] > 210 || getColor(sensorColor)[0] < 255)){
             driveWithInput(-1,0,0);
         }
@@ -141,25 +141,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         while(opModeIsActive()){}
         mediaPlayer.stop();
 
-        driveForTime(-1, 0, 0, 1);
-        driveForTime(0, 1, 0, 7);
-        driveForTime(1, 0, 0, 9);
 
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
 
 
 
