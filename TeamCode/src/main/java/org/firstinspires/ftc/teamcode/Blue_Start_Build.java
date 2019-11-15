@@ -125,7 +125,7 @@ public class Blue_Start_Build extends LinearOpMode {
 
         driveForTime(-1, 0, 0, 1);
         driveForTime(0, 1, 0, 4);
-        driveForTime(1, 0, 0, 2.5);
+        driveForTime(-1, 0, 0, 2.5);
 
         driveForTime(0, 1, 0, 1);
         driveForTime(1, 0, 0, 1.5);
