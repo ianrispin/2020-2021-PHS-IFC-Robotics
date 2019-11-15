@@ -43,6 +43,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.Timer;
 
+import java.lang.Math.*;
+
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -143,10 +145,10 @@ public class Blue_Start_Build extends LinearOpMode {
         driveForTime(1, 0, 0, 1.5);
         driveForTime(0, 1, 0, 1);
 
-        driveForTime(-1, 0, 0, 2);
-        driveForTime(0, 1, 0, 4);
+        driveForTime(1, 0, 0, 0.5);
+        driveForTime(0, -1, 0, 4);
         while(!(getColor()[0] > 210 || getColor()[0] < 255)){
-            driveWithInput(-1,0,0);
+            driveWithInput(1,0,0);
         }
         driveWithInput(0, 0, 0);
         while(opModeIsActive()){}
@@ -283,5 +285,10 @@ public class Blue_Start_Build extends LinearOpMode {
 
         // return scaled value.
         return dScale;
+    }
+    public void driveADistance(float distance, int x, int y) {
+        float setpos = (float) (2 * Math.PI);
+//        make if statements to set the position of the motors
+        motorFrontLeft.setTargetPosition((int) (distance/setpos));
     }
 }
