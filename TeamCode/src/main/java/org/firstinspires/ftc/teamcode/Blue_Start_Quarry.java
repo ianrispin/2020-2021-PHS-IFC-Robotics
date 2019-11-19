@@ -135,7 +135,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         //driveForTime(0,1,0,4)
         //dispense skystone
 
-        driveForTime(0,1,0,.1);
+
         while(!(getColor(sensorColor)[0] > 210 || getColor(sensorColor)[0] < 255)){
             driveWithInput(-1,0,0);
         }

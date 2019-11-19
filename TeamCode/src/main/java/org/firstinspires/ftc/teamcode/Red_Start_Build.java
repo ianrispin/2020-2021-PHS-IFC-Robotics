@@ -120,6 +120,28 @@ public class Red_Start_Build extends LinearOpMode {
         mediaPlayer.start();
 
         driveForTime(0, 1, 0, 0.1);
+        driveForTime(0,1,0,.1);
+
+        driveForTime(1, 0, 0, 1);
+        driveForTime(0, 1, 0, 4);
+        driveForTime(1, 0, 0, 2.5);
+
+        driveForTime(0, 1, 0, 1);
+        driveForTime(-1, 0, 0, 1.5);
+        driveForTime(0, 1, 0, 1);
+        driveForTime(1, 0, 0, 1.5);
+        driveForTime(0, 1, 0, 1);
+        driveForTime(-1, 0, 0, 1.5);
+        driveForTime(0, 1, 0, 1);
+        driveForTime(1, 0, 0, 1.5);
+        driveForTime(0, 1, 0, 1);
+        driveForTime(-1, 0, 0, 1.5);
+        driveForTime(0, 1, 0, 1);
+        driveForTime(1, 0, 0, 1.5);
+        driveForTime(0, 1, 0, 1);
+        driveForTime(-1, 0, 0, 1.5);
+        driveForTime(0, -1, 0, 1);
+
             while (!((getColor()[0] < 20)) && (!(getColor()[0] > 350))) {
 //            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
                 driveWithInput(-1, 0, 0);
