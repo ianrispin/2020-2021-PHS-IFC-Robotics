@@ -145,7 +145,7 @@ float hsvValues[] = {0F, 0F, 0F};
         }
         // holonomic formulas
         if(gamepad1.right_bumper){
-            foundColor = getColor()[0];
+            foundColor = getColor(sensorColor)[0];
         }
 //        if (gamepad1LeftY !== 0) {
 //            getColor();
@@ -167,14 +167,14 @@ float hsvValues[] = {0F, 0F, 0F};
      * scaled value is less than linear.  This is to make it easier to drive
      * the robot more precisely at slower speeds.
      */
-    public float[] getColor() {
+    public float[] getColor(ColorSensor sensor) {
 //        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         // get a reference to the color sensor.
 
 
-        Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                (int) (sensorColor.green() * SCALE_FACTOR),
-                (int) (sensorColor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (sensor.red() * SCALE_FACTOR),
+                (int) (sensor.green() * SCALE_FACTOR),
+                (int) (sensor.blue() * SCALE_FACTOR),
                 hsvValues);
 
         relativeLayout.post(new Runnable() {
@@ -185,16 +185,16 @@ float hsvValues[] = {0F, 0F, 0F};
         return hsvValues;
     }
     public void driveWithInput(float directionX,float directionY,float rotation){//direction refers to values that would be seen on a gamepad.
-        float FrontLeft = -directionY - directionX - rotation;
+        float FrontLeft = -directionY - directionX - rotation;//left power is reversed
         float FrontRight = directionY - directionX - rotation;
         float BackRight = directionY + directionX - rotation;
         float BackLeft = -directionY + directionX - rotation;
 
         // clip the right/left values so that the values never exceed +/- 1
-//        FrontRight = Range.clip(FrontRight, -1, 1);
-//        FrontLeft = Range.clip(FrontLeft, -1, 1);
-//        BackLeft = Range.clip(BackLeft, -1, 1);
-//        BackRight = Range.clip(BackRight, -1, 1);
+        FrontRight = Range.clip(FrontRight, -1, 1);
+        FrontLeft = Range.clip(FrontLeft, -1, 1);
+        BackLeft = Range.clip(BackLeft, -1, 1);
+        BackRight = Range.clip(BackRight, -1, 1);
 
         // write the values to the motors
         motorFrontRight.setPower(FrontRight);
@@ -230,6 +230,7 @@ float hsvValues[] = {0F, 0F, 0F};
 
 //        whenDone.schedule(new TimerTask());
     }
+
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                 0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};

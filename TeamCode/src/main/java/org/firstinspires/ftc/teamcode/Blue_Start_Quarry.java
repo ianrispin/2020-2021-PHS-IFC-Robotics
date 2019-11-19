@@ -130,8 +130,10 @@ public class Blue_Start_Quarry extends LinearOpMode {
         //driveWithInput(-1,0,0)
         //}
         //driveForTime(-1,0,0,.1)
-        //driveForTime(0,1,0,.3)
-        //dr
+        //grabCode()
+        //go back and turn to the bridge
+        //driveForTime(0,1,0,4)
+        //dispense skystone
 
         driveForTime(0,1,0,.1);
         while(!(getColor(sensorColor)[0] > 210 || getColor(sensorColor)[0] < 255)){
@@ -141,25 +143,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         while(opModeIsActive()){}
         mediaPlayer.stop();
 
-        driveForTime(-1, 0, 0, 1);
-        driveForTime(0, 1, 0, 7);
-        driveForTime(1, 0, 0, 9);
 
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
-        driveForTime(-1, 0, 0, 3);
-        driveForTime(0, 1, 0, 2);
 
 
 
