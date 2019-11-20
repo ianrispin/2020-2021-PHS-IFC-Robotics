@@ -287,8 +287,59 @@ public class Blue_Start_Build extends LinearOpMode {
         return dScale;
     }
     public void driveADistance(float distance, int x, int y) {
-        float setpos = (float) (2 * Math.PI);
+        float setpos = (float) (2 * Math.PI);//once found radius, multiply 2*pi*radius
+        float FrontLeft = -y - x;
+        float FrontRight = y - x;
+        float BackRight = y + x;
+        float BackLeft = -y + x;
 //        make if statements to set the position of the motors
         motorFrontLeft.setTargetPosition((int) (distance/setpos));
+        motorFrontRight.setTargetPosition((int) (distance/setpos));
+        motorBackLeft.setTargetPosition((int) (distance/setpos));
+        motorBackRight.setTargetPosition((int) (distance/setpos));
+        if (motorFrontLeft.isBusy()) {
+            motorFrontLeft.setPower(FrontLeft);
+        }
+        else {
+            motorFrontLeft.setPower(0);
+        }
+
+        if (motorFrontRight.isBusy()) {
+            motorFrontRight.setPower(FrontRight);
+        }
+        else {
+            motorFrontRight.setPower(0);
+        }
+
+        if (motorBackLeft.isBusy()) {
+            motorBackLeft.setPower(BackLeft);
+        }
+        else {
+            motorBackLeft.setPower(0);
+        }
+
+        if (motorBackRight.isBusy()) {
+            motorBackRight.setPower(BackRight);
+        }
+        else {
+            motorBackRight.setPower(0);
+        }
     }
 }
+//    public void driveWithInput(float directionX,float directionY,float rotation){//direction refers to values that would be seen on a gamepad.
+//        float FrontLeft = -directionY - directionX - rotation;
+//        float FrontRight = directionY - directionX - rotation;
+//        float BackRight = directionY + directionX - rotation;
+//        float BackLeft = -directionY + directionX - rotation;
+
+
+// clip the right/left values so that the values never exceed +/- 1
+//        FrontRight = Range.clip(FrontRight, -1, 1);
+//        FrontLeft = Range.clip(FrontLeft, -1, 1);
+//        BackLeft = Range.clip(BackLeft, -1, 1);
+//        BackRight = Range.clip(BackRight, -1, 1);
+
+//motorFrontRight.setPower(FrontRight);
+//        motorFrontLeft.setPower(FrontLeft);
+//        motorBackLeft.setPower(BackLeft);
+//        motorBackRight.setPower(BackRight);
