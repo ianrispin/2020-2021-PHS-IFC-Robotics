@@ -119,8 +119,8 @@ public class Red_Start_Build extends LinearOpMode {
         }
         mediaPlayer.start();
 
-//        driveADistance(1, 0, 1);
-//        driveADistance(1, 0, 1);
+        driveADistance(8, 0, 1);
+//        driveADistance(1, 0, 1);   80 cm/second
 
 //        driveADistance(3, 1, 0);
         driveForTime(0, 1, 0, 0.1);
