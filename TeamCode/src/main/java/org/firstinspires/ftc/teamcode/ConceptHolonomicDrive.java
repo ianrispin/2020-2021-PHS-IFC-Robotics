@@ -185,10 +185,17 @@ float hsvValues[] = {0F, 0F, 0F};
         return hsvValues;
     }
     public void driveWithInput(float directionX,float directionY,float rotation){//direction refers to values that would be seen on a gamepad.
-        float FrontLeft = -directionY - directionX - rotation;//left power is reversed
-        float FrontRight = directionY - directionX - rotation;
-        float BackRight = directionY + directionX - rotation;
-        float BackLeft = -directionY + directionX - rotation;
+//        float FrontLeft = (float)(-(directionY + directionX + (rotation / .75))  );//left power is reversed
+//        float FrontRight = (float)(directionY - directionX - (rotation / .75));
+//        float BackRight = (float)(directionY + directionX - (rotation /.75));
+//        float BackLeft = (float)(-(directionY - directionX + (rotation / .75)));
+        float theta = (float)Math.atan2(directionY,directionX);
+        float amplitude = (float)Math.hypot(directionX,directionY);
+
+        float FrontLeft = (float)(-Math.sin(theta+((1.0/4.0) * Math.PI)) * 1.0/.71 * amplitude - (rotation / .75));
+        float BackRight = (float)((Math.sin(theta+((1.0/4.0) * Math.PI)) * 1.0/.71 * amplitude - (rotation / .75)));
+        float FrontRight = (float)(Math.sin(theta-((1.0/4.0) * Math.PI)) * 1.0/.71 * amplitude - (rotation / .75));
+        float BackLeft = (float)(-Math.sin(theta-((1.0/4.0) * Math.PI)) * 1.0/.71 * amplitude - (rotation / .75));
 
         // clip the right/left values so that the values never exceed +/- 1
         FrontRight = Range.clip(FrontRight, -1, 1);
@@ -213,6 +220,8 @@ float hsvValues[] = {0F, 0F, 0F};
         telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
         telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
+        telemetry.addData("Theta", "Theta: " + String.format("%.2f", theta));
+
 
     }
     public void driveForTime(float directionX,float directionY,float rotation,double moveDuration){//going to optomise this to make it better for turning

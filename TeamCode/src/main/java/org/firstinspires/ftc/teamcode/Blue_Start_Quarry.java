@@ -111,16 +111,17 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+//        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+//        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-        while(runtime.time() < 50){
+        while(runtime.time() < 17){
 
         }
                 mediaPlayer.start();
+        while(runtime.time() < 20){}
 // actual autonomous psudocode
 //        driveForTime(0,1, 0 , .2);
         //Timer moveLimit = new Timer();
@@ -135,9 +136,10 @@ public class Blue_Start_Quarry extends LinearOpMode {
         //driveForTime(0,1,0,4)
         //dispense skystone
 
+        driveForTime(0,1, 0 , .1);
 
-        while(!(getColor(sensorColor)[0] > 210 || getColor(sensorColor)[0] < 255)){
-            driveWithInput(-1,0,0);
+        while(!(getColor(sensorColor)[0] > 210 && getColor(sensorColor)[0] < 255)){
+            driveWithInput(-(float)0.5,0,0);
         }
         driveWithInput(0, 0, 0);
         while(opModeIsActive()){}

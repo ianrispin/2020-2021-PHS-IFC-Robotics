@@ -112,20 +112,20 @@ public class Blue_Start_Build extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+//        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+//        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-        while(runtime.time() < 50){
-
-        }
+//        while(runtime.time() < 30){
+//
+//        }
         mediaPlayer.start();
 //        not this
         driveForTime(0,1,0,.1);
 
-        driveForTime(-1, 0, 0, 1);
+        driveForTime(-1, 0, 0, 0.75);
         driveForTime(0, 1, 0, 4);
         driveForTime(-1, 0, 0, 2.5);
 
@@ -147,7 +147,7 @@ public class Blue_Start_Build extends LinearOpMode {
 
         driveForTime(1, 0, 0, 0.5);
         driveForTime(0, -1, 0, 4);
-        while(!(getColor()[0] > 210 || getColor()[0] < 255)){
+        while(!(getColor()[0] > 210 && getColor()[0] < 255)){
             driveWithInput(1,0,0);
         }
         driveWithInput(0, 0, 0);
@@ -249,7 +249,7 @@ public class Blue_Start_Build extends LinearOpMode {
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
         whenDone.schedule(t,(long)moveDuration * 1000);
-        while(!t.finished) {
+        while(!t.finished && opModeIsActive()) {
             driveWithInput(directionX,directionY,rotation);
 
         }
