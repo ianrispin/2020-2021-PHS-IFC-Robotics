@@ -119,6 +119,10 @@ public class Red_Start_Build extends LinearOpMode {
         }
         mediaPlayer.start();
 
+//        driveADistance(1, 0, 1);
+//        driveADistance(1, 0, 1);
+
+//        driveADistance(3, 1, 0);
         driveForTime(0, 1, 0, 0.1);
         driveForTime(0,1,0,.1);
 
@@ -279,5 +283,44 @@ public class Red_Start_Build extends LinearOpMode {
 
         // return scaled value.
         return dScale;
+    }
+    public void driveADistance(float distance, int x, int y) {
+        float setpos = (float) (2 * Math.PI);//once found radius, multiply 2*pi*radius
+        float FrontLeft = -y - x;
+        float FrontRight = y - x;
+        float BackRight = y + x;
+        float BackLeft = -y + x;
+//        make if statements to set the position of the motors
+        motorFrontLeft.setTargetPosition((int) (distance/setpos));
+        motorFrontRight.setTargetPosition((int) (distance/setpos));
+        motorBackLeft.setTargetPosition((int) (distance/setpos));
+        motorBackRight.setTargetPosition((int) (distance/setpos));
+        if (motorFrontLeft.isBusy()) {
+            motorFrontLeft.setPower(FrontLeft);
+        }
+        else {
+            motorFrontLeft.setPower(0);
+        }
+
+        if (motorFrontRight.isBusy()) {
+            motorFrontRight.setPower(FrontRight);
+        }
+        else {
+            motorFrontRight.setPower(0);
+        }
+
+        if (motorBackLeft.isBusy()) {
+            motorBackLeft.setPower(BackLeft);
+        }
+        else {
+            motorBackLeft.setPower(0);
+        }
+
+        if (motorBackRight.isBusy()) {
+            motorBackRight.setPower(BackRight);
+        }
+        else {
+            motorBackRight.setPower(0);
+        }
     }
 }
