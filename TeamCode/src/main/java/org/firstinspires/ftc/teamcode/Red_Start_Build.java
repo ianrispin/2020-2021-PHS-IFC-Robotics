@@ -119,37 +119,38 @@ public class Red_Start_Build extends LinearOpMode {
         }
         mediaPlayer.start();
 
-        driveADistance(8, 0, 1);
-//        driveADistance(1, 0, 1);   80 cm/second
 
-//        driveADistance(3, 1, 0);
-        driveForTime(0, 1, 0, 0.1);
-        driveForTime(0,1,0,.1);
 
-        driveForTime(1, 0, 0, 1);
-        driveForTime(0, 1, 0, 4);
-        driveForTime(1, 0, 0, 2.5);
 
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, -1, 0, 1);
+//start robot facing the tape (servos facing center)
+//        driveForTime(1, 0, 0, 0.9);
+//        driveForTime(0, -1, 0, 1.1);
+//        //activate servos and clamp onto foundation; the servos rotate counterclockwise
+//        driveForTime(-1, 0, 0, 0.9);
+//        //unclamp servos
+//        driveForTime(0, 1, 0, 1.2);
 
-            while (!((getColor()[0] < 20)) && (!(getColor()[0] > 350))) {
-//            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
-                driveWithInput(-1, 0, 0);
-            }
+
+//        driveForTime(1, 0, 0, 1);
+//        driveForTime(0, 1, 0, 4);
+//        driveForTime(1, 0, 0, 2.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, -1, 0, 1);
+
+        driveForTime(1, -1, 0, 0.25);//if the dragging foundation code doesn't work
         driveWithInput(0,0,0);
             while(opModeIsActive()){}
         mediaPlayer.stop();
