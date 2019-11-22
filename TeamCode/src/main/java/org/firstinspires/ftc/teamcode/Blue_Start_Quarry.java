@@ -123,14 +123,14 @@ public class Blue_Start_Quarry extends LinearOpMode {
                 mediaPlayer.start();
         while(runtime.time() < 20){}
 // actual autonomous psudocode
-//        driveForTime(0,1, 0 , .2);
-        //Timer moveLimit = new Timer();
-        //boolean TimeUp = false;
-        //moveLimit.schedule(new TimerTask(){TimeUp = true}, 2000);
-        //while(!TimeUp and !(getColor(frontSensor)[2] < 15)){
-        //driveWithInput(-1,0,0)
+        //runtime.reset();
+        //1 second = 80cm
+//        driveForTime(0,1, 0 , 1.2);
+        //while(!(getColor(frontSensor)[2] < 15)){
+        //driveWithInput(-0.5,0,0);
         //}
-        //driveForTime(-1,0,0,.1)
+        //double distance = (0.4)*runtime.time()
+
         //grabCode()
         //go back and turn to the bridge
         //driveForTime(0,1,0,4)

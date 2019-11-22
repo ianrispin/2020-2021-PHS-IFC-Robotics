@@ -239,6 +239,14 @@ float hsvValues[] = {0F, 0F, 0F};
 
 //        whenDone.schedule(new TimerTask());
     }
+    public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
+        double velocity = 0.8;
+        double speed = powerX + powerY;
+        double finalVelocity = velocity * speed;
+        double FinalTime = distance/finalVelocity;
+        driveForTime(powerX, powerY, 0, FinalTime);
+        driveWithInput(0,0,0);
+    }
 
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
