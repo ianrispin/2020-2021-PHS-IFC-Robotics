@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -65,6 +66,7 @@ public class Red_Start_Build extends LinearOpMode {
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
+    Servo hook;
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F, 0F, 0F};
@@ -93,6 +95,7 @@ public class Red_Start_Build extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        hook = hardwareMap.servo.get("hook");
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
@@ -114,43 +117,46 @@ public class Red_Start_Build extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-        while (runtime.time() < 50) {
-
-        }
         mediaPlayer.start();
 
-        driveADistance(8, 0, 1);
-//        driveADistance(1, 0, 1);   80 cm/second
 
-//        driveADistance(3, 1, 0);
-        driveForTime(0, 1, 0, 0.1);
-        driveForTime(0,1,0,.1);
 
-        driveForTime(1, 0, 0, 1);
-        driveForTime(0, 1, 0, 4);
-        driveForTime(1, 0, 0, 2.5);
 
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, -1, 0, 1);
+//start robot facing the tape (servos facing center)
+        hook.setPosition(0);
+        driveForDistance(0, -1, 0.76);
+        driveForDistance(1, 0, .9);
+        hook.setPosition(0.5);
+        driveForDistance(0, 1, 0.76);
+        hook.setPosition(0);
+        while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
+            driveWithInput(-1, 0, 0);
+        }
+        while(opModeIsActive()){}
 
-            while (!((getColor()[0] < 20)) && (!(getColor()[0] > 350))) {
-//            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
-                driveWithInput(-1, 0, 0);
-            }
-        driveWithInput(0,0,0);
+
+
+//        driveForTime(1, 0, 0, 1);
+//        driveForTime(0, 1, 0, 4);
+//        driveForTime(1, 0, 0, 2.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, -1, 0, 1);
+
+        //driveForTime(1, -1, 0, 0.25);//if the dragging foundation code doesn't work
+        //driveWithInput(0,0,0);
             while(opModeIsActive()){}
         mediaPlayer.stop();
             //while(!(getColor()[0] <20) and !(getColor()[0] > 350)
@@ -256,6 +262,16 @@ public class Red_Start_Build extends LinearOpMode {
 
 //        whenDone.schedule(new TimerTask());
     }
+
+    public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
+        double velocity = 0.8;
+        double speed = powerX + powerY;
+        double finalVelocity = velocity * speed;
+        double FinalTime = distance/finalVelocity;
+        driveForTime(powerX, powerY, 0, FinalTime);
+        driveWithInput(0,0,0);
+    }
+
     double scaleInput ( double dVal){
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                 0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
