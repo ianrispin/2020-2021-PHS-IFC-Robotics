@@ -123,16 +123,25 @@ public class Red_Start_Build extends LinearOpMode {
 
 
 //start robot facing the tape (servos facing center)
-        hook.setPosition(0);
-        driveForDistance(0, -1, 0.76);
-        driveForDistance(1, 0, .9);
-        hook.setPosition(0.5);
-        driveForDistance(0, 1, 0.76);
-        hook.setPosition(0);
-        while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
-            driveWithInput(-1, 0, 0);
-        }
+
+        //hook.setPosition(0);
+        //driveForDistance(0, -1, 0.76);
+        //driveForDistance(1, 0, .9);
+        //hook.setPosition(0.5);
+        //driveForDistance(0, 1, 0.76);
+        //hook.setPosition(0);
+        driveForTime(0, 1, 0, .5);
+       // while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
+        //    driveWithInput(-1, 0, 0);
+        //}
         while(opModeIsActive()){}
+
+
+
+
+
+
+
 
 
 
