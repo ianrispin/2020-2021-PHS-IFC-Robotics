@@ -117,26 +117,36 @@ public class Blue_Start_Quarry extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
+        /*
         while(runtime.time() < 17){
 
         }
+
+         */
                 mediaPlayer.start();
-        while(runtime.time() < 20){}
+//        while(runtime.time() < 20){}
 // actual autonomous psudocode
         //runtime.reset();
         //1 second = 80cm
-//        driveForTime(0,1, 0 , 1.2);
-        //while(!(getColor(frontSensor)[2] < 15)){
-        //driveWithInput(-0.5,0,0);
-        //}
-        //double distance = (0.4)*runtime.time()
-
+        /*
+        driveForTime(0,1, 0 , 1.2);
+        while(!(getColor(frontSensor)[2] < 15)){
+        driveWithInput(-(float)0.5,0,0);
+        }
+        double distance = (0.4)*runtime.time();
         //grabCode()
-        //go back and turn to the bridge
-        //driveForTime(0,1,0,4)
-        //dispense skystone
+        driveForDistance(1,0,distance + 0.7);
+        //eject skystone
+        driveForDistance(-1,0, 0.7 + distance + .62);
+        //grabCode()
+        driveForDistance(1,0,0.7 + distance + .8);
+        //eject skystone
+        //move to tape
+        */
 
-        driveForTime(0,1, 0 , .1);
+
+
+        driveForTime(0,1, 0 , 0.1);
 
         while(!(getColor(sensorColor)[0] > 210 && getColor(sensorColor)[0] < 255)){
             driveWithInput(-(float)0.5,0,0);
@@ -241,7 +251,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
         whenDone.schedule(t,(long)moveDuration * 1000);
-        while(!t.finished) {
+        while(!t.finished && opModeIsActive()) {
             driveWithInput(directionX,directionY,rotation);
 
         }
@@ -250,6 +260,14 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
 
 //        whenDone.schedule(new TimerTask());
+    }
+    public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
+        double velocity = 0.8;
+        double speed = powerX + powerY;
+        double finalVelocity = velocity * speed;
+        double FinalTime = distance/finalVelocity;
+        driveForTime(powerX, powerY, 0, FinalTime);
+        driveWithInput(0,0,0);
     }
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,

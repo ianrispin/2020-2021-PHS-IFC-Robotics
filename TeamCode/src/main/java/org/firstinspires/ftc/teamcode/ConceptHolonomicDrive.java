@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,6 +47,15 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
+    DcMotor verticalLift;
+
+    static final double MAX_POS     =  1.0;     // Maximum rotational position
+    static final double MIN_POS     =  0.0;     // Minimum rotational position
+
+    // Define class members
+    Servo harvester;
+    double  harvesterPosition = (MAX_POS - MIN_POS) / 2; // Start at halfway position
+    boolean autoHarvester = false;
 
 // hsvValues is an array that will hold the hue, saturation, and value information.
 float hsvValues[] = {0F, 0F, 0F};
@@ -85,6 +95,8 @@ float hsvValues[] = {0F, 0F, 0F};
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        harvester = hardwareMap.servo.get("harvester");
+        verticalLift = hardwareMap.dcMotor.get("verticalLift");
         motorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -143,10 +155,17 @@ float hsvValues[] = {0F, 0F, 0F};
         }else {
             driveWithInput(Xmove, Ymove, gamepad1RightX);
         }
-        // holonomic formulas
         if(gamepad1.right_bumper){
-            foundColor = getColor(sensorColor)[0];
+            dropHarvester();
         }
+        else if(gamepad1.left_bumper){
+            raiseHarvester();
+        }
+        verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+        // holonomic formulas
+//        if(gamepad1.right_bumper){
+//            foundColor = getColor(sensorColor)[0];
+//        }
 //        if (gamepad1LeftY !== 0) {
 //            getColor();
 //        }
@@ -246,6 +265,30 @@ float hsvValues[] = {0F, 0F, 0F};
         double FinalTime = distance/finalVelocity;
         driveForTime(powerX, powerY, 0, FinalTime);
         driveWithInput(0,0,0);
+    }
+    public void manualHarvester(float direction){
+        if((direction < 0 && harvesterPosition > MIN_POS) || (direction > 0 && harvesterPosition < MAX_POS) && !autoHarvester){
+            harvesterPosition += 0.1 * direction;
+
+        }
+        harvester.setPosition(harvesterPosition);
+
+    }
+    public void dropHarvester(){
+        if(!autoHarvester) {
+            autoHarvester = true;
+            harvester.setPosition(1);
+            harvesterPosition = 1;
+            autoHarvester = false;
+        }
+    }
+    public void raiseHarvester(){
+        if(!autoHarvester) {
+            autoHarvester = true;
+            harvester.setPosition(0);
+            harvesterPosition = 0;
+            autoHarvester = false;
+        }
     }
 
     double scaleInput(double dVal) {

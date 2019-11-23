@@ -115,14 +115,26 @@ public class Red_Start_Quarry extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-        while (runtime.time() < 50) {
-
-        }
         mediaPlayer.start();
+        /*
+        //        driveForTime(0,1, 0 , 1.2);
+        //while(!(getColor(frontSensor)[2] < 15)){
+        //driveWithInput(0.5,0,0);
+        //}
+        //double distance = (0.4)*runtime.time()
+        //grabCode()
+        //driveForDistance(-1,0,distance + 0.7);
+        //eject skystone
+        //driveForDistance(1,0, 0.7 + distance + .62
+        //grabCode()
+        //driveForDistance(-1,0,0.7 + distance + .8)
+        //eject skystone
+        //move to tape
+        */
         driveForTime(0, 1, 0, 0.1);
             while (!((getColor()[0] < 20)) && (!(getColor()[0] > 350))) {
 //            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
-                driveWithInput(1, 0, 0);
+                driveWithInput((float)0.5, 0, 0);
             }
         driveWithInput(0,0,0);
             while(opModeIsActive()){}
