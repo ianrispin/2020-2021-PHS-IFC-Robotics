@@ -123,34 +123,64 @@ public class Blue_Start_Build extends LinearOpMode {
 //        }
         mediaPlayer.start();
 //        not this
-        driveForTime(0,1,0,.1);
-
-        driveForTime(-1, 0, 0, 0.75);
-        driveForTime(0, 1, 0, 4);
-        driveForTime(-1, 0, 0, 2.5);
-
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(-1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-        driveForTime(1, 0, 0, 1.5);
-        driveForTime(0, 1, 0, 1);
-
-        driveForTime(1, 0, 0, 0.5);
-        driveForTime(0, -1, 0, 4);
+//        driveForTime(0,1,0,.1);
+//
+//        driveForTime(-1, 0, 0, 0.75);
+//        driveForTime(0, 1, 0, 4);
+//        driveForTime(-1, 0, 0, 2.5);
+//
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(-1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//        driveForTime(1, 0, 0, 1.5);
+//        driveForTime(0, 1, 0, 1);
+//
+//        driveForTime(1, 0, 0, 0.5);
+//        driveForTime(0, -1, 0, 4);
+        driveForTime(0, 1, 0, 0.1);
         while(!(getColor()[0] > 210 && getColor()[0] < 255)){
-            driveWithInput(1,0,0);
+            driveWithInput((float)0.5,0,0);
         }
         driveWithInput(0, 0, 0);
+        driveForTime(0, 1, 0, .5);
+//        driveForTime(0,1,0,.1);
+////
+////        driveForTime(-1, 0, 0, 0.75);
+////        driveForTime(0, 1, 0, 4);
+////        driveForTime(-1, 0, 0, 2.5);
+////
+////        driveForTime(0, 1, 0, 1);
+////        driveForTime(1, 0, 0, 1.5);
+////        driveForTime(0, 1, 0, 1);
+////        driveForTime(-1, 0, 0, 1.5);
+////        driveForTime(0, 1, 0, 1);
+////        driveForTime(1, 0, 0, 1.5);
+////        driveForTime(0, 1, 0, 1);
+////        driveForTime(-1, 0, 0, 1.5);
+////        driveForTime(0, 1, 0, 1);
+////        driveForTime(1, 0, 0, 1.5);
+////        driveForTime(0, 1, 0, 1);
+////        driveForTime(-1, 0, 0, 1.5);
+////        driveForTime(0, 1, 0, 1);
+////        driveForTime(1, 0, 0, 1.5);
+////        driveForTime(0, 1, 0, 1);
+////
+////        driveForTime(1, 0, 0, 0.5);
+////        driveForTime(0, -1, 0, 4);
+////        while(!(getColor()[0] > 210 && getColor()[0] < 255)){
+////            driveWithInput(1,0,0);
+////        }
+        //driveWithInput(0, 0, 0);
         while(opModeIsActive()){}
         mediaPlayer.stop();
 //        not this

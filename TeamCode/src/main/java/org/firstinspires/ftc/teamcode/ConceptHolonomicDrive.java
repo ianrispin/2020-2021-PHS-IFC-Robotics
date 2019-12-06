@@ -95,8 +95,8 @@ float hsvValues[] = {0F, 0F, 0F};
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
-        harvester = hardwareMap.servo.get("harvester");
-        verticalLift = hardwareMap.dcMotor.get("verticalLift");
+//        harvester = hardwareMap.get(Servo.class, "harvester");
+//        verticalLift = hardwareMap.dcMotor.get("verticalLift");
         motorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -109,7 +109,7 @@ float hsvValues[] = {0F, 0F, 0F};
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
         mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
-        mediaPlayer.start();
+//        mediaPlayer.start();
 
 //        ourColorSensor = new ColorSensorValue();
         //These work without reversing (Tetrix motors).
@@ -155,13 +155,13 @@ float hsvValues[] = {0F, 0F, 0F};
         }else {
             driveWithInput(Xmove, Ymove, gamepad1RightX);
         }
-        if(gamepad1.right_bumper){
-            dropHarvester();
-        }
-        else if(gamepad1.left_bumper){
-            raiseHarvester();
-        }
-        verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+//        if(gamepad1.right_bumper){
+//            dropHarvester();
+//        }
+//        else if(gamepad1.left_bumper){
+//            raiseHarvester();
+//        }
+//        verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
         // holonomic formulas
 //        if(gamepad1.right_bumper){
 //            foundColor = getColor(sensorColor)[0];
@@ -275,20 +275,16 @@ float hsvValues[] = {0F, 0F, 0F};
 
     }
     public void dropHarvester(){
-        if(!autoHarvester) {
-            autoHarvester = true;
-            harvester.setPosition(1);
-            harvesterPosition = 1;
-            autoHarvester = false;
-        }
+
+            harvester.setPosition(0.6);
+
+
     }
     public void raiseHarvester(){
-        if(!autoHarvester) {
-            autoHarvester = true;
+
             harvester.setPosition(0);
-            harvesterPosition = 0;
-            autoHarvester = false;
-        }
+
+
     }
 
     double scaleInput(double dVal) {
