@@ -95,7 +95,7 @@ public class Red_Start_Build extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
-//        hook = hardwareMap.get(Servo.class, "hook");
+        hook = hardwareMap.get(Servo.class, "hook");
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
@@ -140,11 +140,13 @@ public class Red_Start_Build extends LinearOpMode {
         //hook.setPosition(0.5);
         //driveForDistance(0, 1, 0.76);
         //hook.setPosition(0);
-        driveForTime(0, 1, 0, .5);
+//        driveForTime(0, 1, 0, .5);
        // while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
         //    driveWithInput(-1, 0, 0);
         //}
+        driveWithInput(0,0,0);
         while(opModeIsActive()){}
+        mediaPlayer.stop();
 
 
 

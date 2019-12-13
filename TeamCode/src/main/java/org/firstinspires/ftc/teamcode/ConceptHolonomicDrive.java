@@ -48,12 +48,15 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
     DcMotor verticalLift;
-
+    double liftHeight = 0;
+    String harvestMode = "POS";
+    double maxLiftHeight = 100000;
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
 
     // Define class members
-    Servo harvester;
+//    Servo harvester;
+    DcMotor harvester;
     double  harvesterPosition = (MAX_POS - MIN_POS) / 2; // Start at halfway position
     boolean autoHarvester = false;
 
@@ -96,7 +99,8 @@ float hsvValues[] = {0F, 0F, 0F};
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
 //        harvester = hardwareMap.get(Servo.class, "harvester");
-//        verticalLift = hardwareMap.dcMotor.get("verticalLift");
+        harvester = hardwareMap.dcMotor.get("harvester");
+        verticalLift = hardwareMap.dcMotor.get("verticalLift");
         motorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -105,11 +109,19 @@ float hsvValues[] = {0F, 0F, 0F};
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if(harvestMode == "POS") {
+            harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            harvester.setTargetPosition(0);
+            harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            harvester.setPower(1);
+        }else{
+            harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
         mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
-//        mediaPlayer.start();
+        mediaPlayer.start();
 
 //        ourColorSensor = new ColorSensorValue();
         //These work without reversing (Tetrix motors).
@@ -134,35 +146,55 @@ float hsvValues[] = {0F, 0F, 0F};
         float gamepad1RightX = gamepad1.right_stick_x;
         float Xmove;
         float Ymove;
-        if(gamepad1.left_stick_y != 0) {
-             Ymove = (float) ((-gamepad1.left_stick_y) / Math.abs(gamepad1.left_stick_y) * Math.sqrt(Math.abs(gamepad1.left_stick_y)));
-        }else{
-             Ymove = 0;
+        if (gamepad1.left_stick_y != 0) {
+            Ymove = (float) ((-gamepad1.left_stick_y) / Math.abs(gamepad1.left_stick_y) * Math.sqrt(Math.abs(gamepad1.left_stick_y)));
+        } else {
+            Ymove = 0;
         }
-        if(gamepad1.left_stick_x != 0) {
-             Xmove = (float) ((gamepad1.left_stick_x) / Math.abs(gamepad1.left_stick_x) * Math.sqrt(Math.abs(gamepad1.left_stick_x)));
-        }else{
-             Xmove = 0;
+        if (gamepad1.left_stick_x != 0) {
+            Xmove = (float) ((gamepad1.left_stick_x) / Math.abs(gamepad1.left_stick_x) * Math.sqrt(Math.abs(gamepad1.left_stick_x)));
+        } else {
+            Xmove = 0;
         }
-        if(gamepad1.a){
-            driveWithInput(0,-1,0);
-        }else if(gamepad1.y){
-            driveWithInput(0,1,0);
-        }else if(gamepad1.x){
-            driveWithInput(-1,0,0);
-        }else if(gamepad1.b){
-            driveWithInput(1,0,0);
-        }else {
+        if (gamepad1.a) {
+//            driveWithInput(0, -1, 0);
+//            verticalLift.setTargetPosition(0);
+        } else if (gamepad1.y) {
+            driveWithInput(0, 1, 0);
+        } else if (gamepad1.x) {
+            driveWithInput(-1, 0, 0);
+        } else if (gamepad1.b) {
+//            driveWithInput(1, 0, 0);
+            harvester.setTargetPosition(harvester.getCurrentPosition());
+        } else {
             driveWithInput(Xmove, Ymove, gamepad1RightX);
         }
-//        if(gamepad1.right_bumper){
-//            dropHarvester();
+        //maxServoAngle(34 degrees)
+        if(gamepad1.right_bumper){
+            dropHarvester();
+        }
+        else if(gamepad1.left_bumper){
+            raiseHarvester();
+        }else{
+            if(harvestMode != "POS"){
+                harvester.setPower(0);
+            }
+        }
+
+//        if(gamepad1.right_trigger - gamepad1.left_trigger < 0 && liftHeight >= 0 || gamepad1.right_trigger - gamepad1.left_trigger > 0 && liftHeight <= maxLiftHeight) {
+            verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+            liftHeight += gamepad1.right_trigger - gamepad1.left_trigger;
+
+//        }else{
+//            verticalLift.setPower(0);
 //        }
-//        else if(gamepad1.left_bumper){
-//            raiseHarvester();
-//        }
-//        verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
-        // holonomic formulas
+        //controlServo.setPosition(34/180*liftHeight/maxLiftHeight)
+
+        //code for auto-drop
+        //if(lift is down() && autoDrop){
+        //if(distance < xcm){
+        //
+        //}
 //        if(gamepad1.right_bumper){
 //            foundColor = getColor(sensorColor)[0];
 //        }
@@ -240,6 +272,7 @@ float hsvValues[] = {0F, 0F, 0F};
         telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
         telemetry.addData("Theta", "Theta: " + String.format("%.2f", theta));
+        telemetry.addData("VerticalLift Height", "Height: " + String.format("%.2f",verticalLift.getCurrentPosition()));
 
 
     }
@@ -271,20 +304,26 @@ float hsvValues[] = {0F, 0F, 0F};
             harvesterPosition += 0.1 * direction;
 
         }
-        harvester.setPosition(harvesterPosition);
+//        harvester.setPosition(harvesterPosition);
 
     }
     public void dropHarvester(){
 
-            harvester.setPosition(0.6);
+//            harvester.setPosition(0.6);
+        if(harvestMode == "POS") {
+            harvester.setTargetPosition(240);
+        }else{
+            harvester.setPower(0.8);
+        }
 
 
     }
     public void raiseHarvester(){
-
-            harvester.setPosition(0);
-
-
+        if(harvestMode == "POS") {
+            harvester.setTargetPosition(0);
+        }else{
+            harvester.setPower(-0.8);
+        }
     }
 
     double scaleInput(double dVal) {

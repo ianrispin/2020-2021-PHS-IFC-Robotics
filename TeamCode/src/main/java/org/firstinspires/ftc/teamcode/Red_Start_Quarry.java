@@ -66,6 +66,10 @@ public class Red_Start_Quarry extends LinearOpMode {
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
+    ColorSensor frontSensorLeft;
+    ColorSensor frontSensorRight;
+    DcMotor harvester;
+
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F, 0F, 0F};
@@ -94,7 +98,14 @@ public class Red_Start_Quarry extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        //newCode
+        harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        harvester.setTargetPosition(0);
+        harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        harvester.setPower(1);
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+        frontSensorRight = hardwareMap.get(ColorSensor.class, "frontSensorRight");
+        frontSensorLeft = hardwareMap.get(ColorSensor.class, "frontSensorLeft");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
         mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
@@ -116,23 +127,29 @@ public class Red_Start_Quarry extends LinearOpMode {
         waitForStart();
         runtime.reset();
         mediaPlayer.start();
-        /*
-        //        driveForTime(0,1, 0 , 1.2);
-        //while(!(getColor(frontSensor)[2] < 15)){
-        //driveWithInput(0.5,0,0);
-        //}
-        //double distance = (0.4)*runtime.time()
-        //grabCode()
-        //driveForDistance(-1,0,distance + 0.7);
-        //eject skystone
-        //driveForDistance(1,0, 0.7 + distance + .62
-        //grabCode()
-        //driveForDistance(-1,0,0.7 + distance + .8)
-        //eject skystone
+        driveForDistance(0,1,0.5);
+        while(!(getColor(frontSensorLeft)[2] < 15)){
+        driveWithInput((float)0.25,0,0);
+        }
+        double distance = (0.4)*runtime.time();
+        driveForDistance(0,1,0.05);
+        driveForDistance(-1,0,0.13);
+        dropHarvester();
+        while(harvester.isBusy()){}
+        driveForDistance(0,-1,0.1);
+        driveForDistance(-1,0,distance + 0.7);
+        raiseHarvester();
+        while(harvester.isBusy()){}
+        driveForDistance(1,0, 0.7 + distance + .62);
+         driveForDistance(0,1,0.1);
+        dropHarvester();
+        while(harvester.isBusy()){}
+        driveForDistance(0,-1,0.1);
+        driveForDistance(-1,0,0.7 + distance + .8);
+        raiseHarvester();
         //move to tape
-        */
         driveForTime(0, 1, 0, 0.1);
-            while (!((getColor()[0] < 20)) && (!(getColor()[0] > 350))) {
+            while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350))) {
 //            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
                 driveWithInput((float)0.5, 0, 0);
             }
@@ -176,14 +193,14 @@ public class Red_Start_Quarry extends LinearOpMode {
         }
 
 
-    public float[] getColor () {
+    public float[] getColor(ColorSensor sensor) {
 //        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         // get a reference to the color sensor.
 
 
-        Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                (int) (sensorColor.green() * SCALE_FACTOR),
-                (int) (sensorColor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (sensor.red() * SCALE_FACTOR),
+                (int) (sensor.green() * SCALE_FACTOR),
+                (int) (sensor.blue() * SCALE_FACTOR),
                 hsvValues);
 
         relativeLayout.post(new Runnable() {
@@ -241,6 +258,20 @@ public class Red_Start_Quarry extends LinearOpMode {
 
 
 //        whenDone.schedule(new TimerTask());
+    }
+    public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
+        double velocity = 0.8;
+        double speed = powerX + powerY;
+        double finalVelocity = velocity * speed;
+        double FinalTime = distance/finalVelocity;
+        driveForTime(powerX, powerY, 0, FinalTime);
+        driveWithInput(0,0,0);
+    }
+    public void dropHarvester(){
+            harvester.setTargetPosition(240);
+    }
+    public void raiseHarvester(){
+        harvester.setTargetPosition(0);
     }
     double scaleInput ( double dVal){
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,

@@ -67,6 +67,8 @@ public class Blue_Start_Quarry extends LinearOpMode {
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
+    ColorSensor frontSensor;
+    DcMotor harvester;
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F, 0F, 0F};
@@ -80,7 +82,6 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
     int relativeLayoutId;
     View relativeLayout;
-
 
     MediaPlayer mediaPlayer;
 
@@ -97,7 +98,12 @@ public class Blue_Start_Quarry extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        harvester.setTargetPosition(0);
+        harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        harvester.setPower(1);
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+        frontSensor = hardwareMap.get(ColorSensor.class, "frontSensor");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
         mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
@@ -128,21 +134,24 @@ public class Blue_Start_Quarry extends LinearOpMode {
 // actual autonomous psudocode
         //runtime.reset();
         //1 second = 80cm
-        /*
-        driveForTime(0,1, 0 , 1.2);
+//         driveForTime(0,1, 0 , 1.2);
+        driveForDistance(0,1,0.5);
         while(!(getColor(frontSensor)[2] < 15)){
-        driveWithInput(-(float)0.5,0,0);
+        driveWithInput(-(float)0.25,0,0);
         }
         double distance = (0.4)*runtime.time();
-        //grabCode()
+        driveForDistance(0,1,0.05);
+        dropHarvester();
+        driveForDistance(0,-1,0.1);
         driveForDistance(1,0,distance + 0.7);
-        //eject skystone
+        raiseHarvester();
         driveForDistance(-1,0, 0.7 + distance + .62);
-        //grabCode()
+         driveForDistance(0,1,0.1);
+        dropHarvester();
+        driveForDistance(0,-1,0.1);
         driveForDistance(1,0,0.7 + distance + .8);
-        //eject skystone
+        raiseHarvester();
         //move to tape
-        */
 
 
 
@@ -268,6 +277,12 @@ public class Blue_Start_Quarry extends LinearOpMode {
         double FinalTime = distance/finalVelocity;
         driveForTime(powerX, powerY, 0, FinalTime);
         driveWithInput(0,0,0);
+    }
+    public void dropHarvester(){
+        harvester.setTargetPosition(240);
+    }
+    public void raiseHarvester(){
+        harvester.setTargetPosition(0);
     }
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
