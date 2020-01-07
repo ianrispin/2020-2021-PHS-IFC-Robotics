@@ -99,6 +99,7 @@ public class Red_Start_Quarry extends LinearOpMode {
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
         //newCode
+        harvester = hardwareMap.dcMotor.get("harvester");
         harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         harvester.setTargetPosition(0);
         harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -127,31 +128,34 @@ public class Red_Start_Quarry extends LinearOpMode {
         waitForStart();
         runtime.reset();
         mediaPlayer.start();
-        driveForDistance(0,1,0.5);
-        while(!(getColor(frontSensorLeft)[2] < 15)){
-        driveWithInput((float)0.25,0,0);
-        }
-        double distance = (0.4)*runtime.time();
-        driveForDistance(0,1,0.05);
-        driveForDistance(-1,0,0.13);
-        dropHarvester();
-        while(harvester.isBusy()){}
-        driveForDistance(0,-1,0.1);
-        driveForDistance(-1,0,distance + 0.7);
-        raiseHarvester();
-        while(harvester.isBusy()){}
-        driveForDistance(1,0, 0.7 + distance + .62);
-         driveForDistance(0,1,0.1);
-        dropHarvester();
-        while(harvester.isBusy()){}
-        driveForDistance(0,-1,0.1);
-        driveForDistance(-1,0,0.7 + distance + .8);
-        raiseHarvester();
+        //current code 12/14/19
+//        driveForDistance(0,1,0.65);
+//        driveForTime(0,1,0,0.6);
+//        while(!(getColor(frontSensorLeft)[2] < 25)){
+//        driveWithInput(-(float)0.5,0,0);
+//        }
+//        double distance = (0.4)*runtime.time();
+//        driveForDistance(0,1,0.05);
+//        driveForDistance(-1,0,0.13);
+//        dropHarvester();
+//        while(harvester.isBusy()){}
+//        driveForDistance(0,-1,0.1);
+//        driveForDistance(-1,0,distance + 0.7);
+//        raiseHarvester();
+//        while(harvester.isBusy()){}
+//        driveForDistance(1,0, 0.7 + distance + .62);
+//         driveForDistance(0,1,0.1);
+//        dropHarvester();
+//        while(harvester.isBusy()){}
+//        driveForDistance(0,-1,0.1);
+//        driveForDistance(-1,0,0.7 + distance + .8);
+//        raiseHarvester();
         //move to tape
+        //drive on line code
         driveForTime(0, 1, 0, 0.1);
             while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350))) {
 //            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
-                driveWithInput((float)0.5, 0, 0);
+                driveWithInput(-(float)0.5, 0, 0);
             }
         driveWithInput(0,0,0);
             while(opModeIsActive()){}
@@ -249,7 +253,7 @@ public class Red_Start_Quarry extends LinearOpMode {
 
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
-        whenDone.schedule(t, (long) moveDuration * 1000);
+        whenDone.schedule(t, (long) (moveDuration * 1000));
         while (!t.finished) {
             driveWithInput(directionX, directionY, rotation);
 
@@ -264,7 +268,7 @@ public class Red_Start_Quarry extends LinearOpMode {
         double speed = powerX + powerY;
         double finalVelocity = velocity * speed;
         double FinalTime = distance/finalVelocity;
-        driveForTime(powerX, powerY, 0, FinalTime);
+        driveForTime(powerX, powerY, 0, FinalTime + 0.3);
         driveWithInput(0,0,0);
     }
     public void dropHarvester(){

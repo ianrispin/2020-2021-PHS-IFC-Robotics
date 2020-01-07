@@ -183,7 +183,7 @@ float hsvValues[] = {0F, 0F, 0F};
 
 //        if(gamepad1.right_trigger - gamepad1.left_trigger < 0 && liftHeight >= 0 || gamepad1.right_trigger - gamepad1.left_trigger > 0 && liftHeight <= maxLiftHeight) {
             verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
-            liftHeight += gamepad1.right_trigger - gamepad1.left_trigger;
+            liftHeight += gamepad1.left_trigger - gamepad1.right_trigger;
 
 //        }else{
 //            verticalLift.setPower(0);
@@ -267,12 +267,12 @@ float hsvValues[] = {0F, 0F, 0F};
         telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("Joy XL YL XR", String.format("%.2f", directionX) + " " +
                 String.format("%.2f", directionY) + " " + String.format("%.2f", directionX));
-        telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", FrontLeft));
-        telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
-        telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
-        telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
+//        telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", FrontLeft));
+//        telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
+//        telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
+//        telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
         telemetry.addData("Theta", "Theta: " + String.format("%.2f", theta));
-        telemetry.addData("VerticalLift Height", "Height: " + String.format("%.2f",verticalLift.getCurrentPosition()));
+//        telemetry.addData("VerticalLift Height", "Height: " + String.format("%.2f",verticalLift.getCurrentPosition()));
 
 
     }

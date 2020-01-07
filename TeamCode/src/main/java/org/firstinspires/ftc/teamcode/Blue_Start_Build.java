@@ -147,9 +147,10 @@ public class Blue_Start_Build extends LinearOpMode {
 //
 //        driveForTime(1, 0, 0, 0.5);
 //        driveForTime(0, -1, 0, 4);
+        //drive line code
         driveForTime(0, 1, 0, 0.1);
         while(!(getColor()[0] > 210 && getColor()[0] < 255)){
-            driveWithInput((float)0.5,0,0);
+            driveWithInput(-(float)0.5,0,0);
         }
         driveWithInput(0, 0, 0);
 //        driveForTime(0, 1, 0, .5);
@@ -278,7 +279,7 @@ public class Blue_Start_Build extends LinearOpMode {
 
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
-        whenDone.schedule(t,(long)moveDuration * 1000);
+        whenDone.schedule(t,(long)(moveDuration * 1000));
         while(!t.finished && opModeIsActive()) {
             driveWithInput(directionX,directionY,rotation);
 

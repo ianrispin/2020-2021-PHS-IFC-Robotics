@@ -123,15 +123,25 @@ public class Red_Start_Build extends LinearOpMode {
 
 
 //start robot facing the tape (servos facing center)
+        //current code 12/14/19
+//        driveForTime(0,-1,0,900);
+//        hook.setPosition(1);
+//        sleep(1000);
+//        while(hook.getPosition() != 1){}
+//        driveForTime(0,1,0,900);
+//        hook.setPosition(0);
+//        while(hook.getPosition() != 0){}
+
 //        hook.setPosition(0);
 //        driveForDistance(0, -1, 0.76);
 //        driveForDistance(1, 0, .9);
 //        hook.setPosition(0.5);
 //        driveForDistance(0, 1, 0.76);
 //        hook.setPosition(0);
-        driveForTime(0, 1, 0, 0.1);
+//        driveForTime(0, 1, 0, 0.1);
+        driveForTime(0, 1, 0, 100);
         while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
-            driveWithInput(-(float)0.5, 0, 0);
+            driveWithInput((float)0.5, 0, 0);
         }
 
         //hook.setPosition(0);
@@ -266,14 +276,13 @@ public class Red_Start_Build extends LinearOpMode {
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
 
     }
-    public void driveForTime ( float directionX, float directionY, float rotation,
-                               double moveDuration){//going to optomise this to make it better for turning
+    public void driveForTime ( float directionX, float directionY, float rotation, long moveDuration){//going to optomise this to make it better for turning
 
         Timer whenDone = new Timer();
 
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
-        whenDone.schedule(t, (long) moveDuration * 1000);
+        whenDone.schedule(t, (long) moveDuration);
         while (!t.finished) {
             driveWithInput(directionX, directionY, rotation);
 
@@ -288,7 +297,7 @@ public class Red_Start_Build extends LinearOpMode {
         double velocity = 0.8;
         double speed = powerX + powerY;
         double finalVelocity = velocity * speed;
-        double FinalTime = distance/finalVelocity;
+        long FinalTime = (long)(1000*(distance/finalVelocity));
         driveForTime(powerX, powerY, 0, FinalTime);
         driveWithInput(0,0,0);
     }
