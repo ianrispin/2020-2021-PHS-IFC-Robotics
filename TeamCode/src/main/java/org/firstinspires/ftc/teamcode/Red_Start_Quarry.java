@@ -98,6 +98,10 @@ public class Red_Start_Quarry extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //newCode
         harvester = hardwareMap.dcMotor.get("harvester");
         harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -268,7 +272,7 @@ public class Red_Start_Quarry extends LinearOpMode {
         double speed = powerX + powerY;
         double finalVelocity = velocity * speed;
         double FinalTime = distance/finalVelocity;
-        driveForTime(powerX, powerY, 0, FinalTime + 0.3);
+        driveForTime(powerX, powerY, 0, FinalTime + 0.2);
         driveWithInput(0,0,0);
     }
     public void dropHarvester(){

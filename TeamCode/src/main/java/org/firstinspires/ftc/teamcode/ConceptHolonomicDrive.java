@@ -50,9 +50,10 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor verticalLift;
     double liftHeight = 0;
     String harvestMode = "POS";
-    double maxLiftHeight = 100000;
+    double maxLiftHeight = 1000;
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
+    int maxHarvesterEncoder = 240;
 
     // Define class members
 //    Servo harvester;
@@ -101,6 +102,8 @@ float hsvValues[] = {0F, 0F, 0F};
 //        harvester = hardwareMap.get(Servo.class, "harvester");
         harvester = hardwareMap.dcMotor.get("harvester");
         verticalLift = hardwareMap.dcMotor.get("verticalLift");
+        verticalLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        verticalLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -113,14 +116,15 @@ float hsvValues[] = {0F, 0F, 0F};
             harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             harvester.setTargetPosition(0);
             harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            harvester.setPower(1);
+            harvester.setPower(0.5);
         }else{
             harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
-        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
+//        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
+        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.demoman);
         mediaPlayer.start();
 
 //        ourColorSensor = new ColorSensorValue();
@@ -135,7 +139,6 @@ float hsvValues[] = {0F, 0F, 0F};
 
     @Override
     public void loop() {
-
 
         // left stick controls direction
         // right stick X controls rotation
@@ -181,13 +184,13 @@ float hsvValues[] = {0F, 0F, 0F};
             }
         }
 
-//        if(gamepad1.right_trigger - gamepad1.left_trigger < 0 && liftHeight >= 0 || gamepad1.right_trigger - gamepad1.left_trigger > 0 && liftHeight <= maxLiftHeight) {
+        if(gamepad1.right_trigger - gamepad1.left_trigger < 0 && verticalLift.getCurrentPosition() >= 0 || gamepad1.right_trigger - gamepad1.left_trigger > 0 && verticalLift.getCurrentPosition() <= maxLiftHeight) {
             verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
             liftHeight += gamepad1.left_trigger - gamepad1.right_trigger;
 
-//        }else{
-//            verticalLift.setPower(0);
-//        }
+        }else{
+            verticalLift.setPower(0);
+        }
         //controlServo.setPosition(34/180*liftHeight/maxLiftHeight)
 
         //code for auto-drop
@@ -311,7 +314,7 @@ float hsvValues[] = {0F, 0F, 0F};
 
 //            harvester.setPosition(0.6);
         if(harvestMode == "POS") {
-            harvester.setTargetPosition(240);
+            harvester.setTargetPosition(maxHarvesterEncoder);
         }else{
             harvester.setPower(0.8);
         }
