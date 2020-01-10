@@ -50,7 +50,7 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor verticalLift;
     double liftHeight = 0;
     String harvestMode = "POS";
-    double maxLiftHeight = 1000;
+    double maxLiftHeight = 12000;
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
     int maxHarvesterEncoder = 240;
@@ -184,7 +184,7 @@ float hsvValues[] = {0F, 0F, 0F};
             }
         }
 
-        if(gamepad1.right_trigger - gamepad1.left_trigger < 0 && verticalLift.getCurrentPosition() >= 0 || gamepad1.right_trigger - gamepad1.left_trigger > 0 && verticalLift.getCurrentPosition() <= maxLiftHeight) {
+        if(gamepad1.right_trigger - gamepad1.left_trigger < 0 && verticalLift.getCurrentPosition() >= -maxLiftHeight || gamepad1.right_trigger - gamepad1.left_trigger > 0 && verticalLift.getCurrentPosition() <= 0) {
             verticalLift.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
             liftHeight += gamepad1.left_trigger - gamepad1.right_trigger;
 

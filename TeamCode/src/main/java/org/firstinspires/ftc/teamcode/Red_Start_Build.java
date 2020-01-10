@@ -127,7 +127,7 @@ public class Red_Start_Build extends LinearOpMode {
 
 
 //start robot facing the tape (servos facing center)
-        //current code 12/14/19
+//        current code 12/14/19
 //        driveForTime(0,-1,0,900);
 //        hook.setPosition(1);
 //        sleep(1000);
@@ -136,6 +136,16 @@ public class Red_Start_Build extends LinearOpMode {
 //        hook.setPosition(0);
 //        while(hook.getPosition() != 0){}
 
+        //code 1/9/20
+        driveForDistance(0,-1,0.7);
+        hook.setPosition(1);
+        sleep(800);
+        driveForDistance(0,1,0.8);
+        driveForTime(0,0,0, 100);
+        hook.setPosition(0);
+        sleep(800);
+
+
 //        hook.setPosition(0);
 //        driveForDistance(0, -1, 0.76);
 //        driveForDistance(1, 0, .9);
@@ -143,7 +153,7 @@ public class Red_Start_Build extends LinearOpMode {
 //        driveForDistance(0, 1, 0.76);
 //        hook.setPosition(0);
 //        driveForTime(0, 1, 0, 0.1);
-        driveForTime(0, 1, 0, 100);
+//        driveForTime(0, 1, 0, 100);
         while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
             driveWithInput((float)0.5, 0, 0);
         }
@@ -287,7 +297,7 @@ public class Red_Start_Build extends LinearOpMode {
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
         whenDone.schedule(t, (long) moveDuration);
-        while (!t.finished) {
+        while (!t.finished && opModeIsActive()) {
             driveWithInput(directionX, directionY, rotation);
 
         }
@@ -298,11 +308,11 @@ public class Red_Start_Build extends LinearOpMode {
     }
 
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
-        double velocity = 0.8;
+        double velocity = 0.7;
         double speed = powerX + powerY;
-        double finalVelocity = velocity * speed;
+        double finalVelocity = Math.abs(velocity * speed);
         long FinalTime = (long)(1000*(distance/finalVelocity));
-        driveForTime(powerX, powerY, 0, FinalTime);
+        driveForTime(powerX, powerY, 0, FinalTime+50);
         driveWithInput(0,0,0);
     }
 
