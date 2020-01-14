@@ -127,14 +127,13 @@ public class Blue_Start_Quarry extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-        /*
-        while(runtime.time() < 17){
-
-        }
-
-         */
-                mediaPlayer.start();
-//        while(runtime.time() < 20){}
+        mediaPlayer.start();
+        //Distance measured in meters use time for less than 10 cm 120
+        driveForDistance(0,1,0.7);
+        sleep(1000); //dropHarvester();
+        sleep(1000);
+        driveForDistance(0, -1, 0.3);
+        driveForDistance(-1, 0, 1);
 // actual autonomous psudocode
         //runtime.reset();
         //1 second = 80cm

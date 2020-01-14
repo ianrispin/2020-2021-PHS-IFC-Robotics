@@ -132,8 +132,13 @@ public class Red_Start_Quarry extends LinearOpMode {
         waitForStart();
         runtime.reset();
         mediaPlayer.start();
-        //current code 12/14/19 distance measured in meters use time for less than 10 cm 120
-        driveForDistance(0,1,1.2);
+        //Distance measured in meters use time for less than 10 cm 120
+        driveForDistance(0,1,0.7);
+        sleep(1000); //dropHarvester();
+        sleep(1000);
+        driveForDistance(0, -1, 0.3);
+        driveForDistance(1, 0, 1);
+
 //        driveForTime(0,1,0,0.6);
 //        while(!(getColor(frontSensorLeft)[2] < 25)){
 //        driveWithInput(-(float)0.5,0,0);
