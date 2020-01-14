@@ -127,117 +127,22 @@ public class Red_Start_Build extends LinearOpMode {
 
 
 //start robot facing the tape (servos facing center)
-//        current code 12/14/19
-//        driveForTime(0,-1,0,900);
-//        hook.setPosition(1);
-//        sleep(1000);
-//        while(hook.getPosition() != 1){}
-//        driveForTime(0,1,0,900);
-//        hook.setPosition(0);
-//        while(hook.getPosition() != 0){}
-
-        //code 1/9/20
+//        current code 12/14/code 1/9/20
         driveForDistance(0,-1,0.7);
         hook.setPosition(1);
         sleep(800);
         driveForDistance(0,1,0.8);
         driveForTime(0,0,0, 100);
+        driveForTime(0,0,1,300);
+        sleep(800);
         hook.setPosition(0);
         sleep(800);
-
-
-//        hook.setPosition(0);
-//        driveForDistance(0, -1, 0.76);
-//        driveForDistance(1, 0, .9);
-//        hook.setPosition(0.5);
-//        driveForDistance(0, 1, 0.76);
-//        hook.setPosition(0);
-//        driveForTime(0, 1, 0, 0.1);
-//        driveForTime(0, 1, 0, 100);
         while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
             driveWithInput((float)0.5, 0, 0);
         }
-
-        //hook.setPosition(0);
-        //driveForDistance(0, -1, 0.76);
-        //driveForDistance(1, 0, .9);
-        //hook.setPosition(0.5);
-        //driveForDistance(0, 1, 0.76);
-        //hook.setPosition(0);
-//        driveForTime(0, 1, 0, .5);
-       // while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
-        //    driveWithInput(-1, 0, 0);
-        //}
         driveWithInput(0,0,0);
         while(opModeIsActive()){}
         mediaPlayer.stop();
-
-
-
-
-
-
-
-
-
-
-//        driveForTime(1, 0, 0, 1);
-//        driveForTime(0, 1, 0, 4);
-//        driveForTime(1, 0, 0, 2.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(-1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(-1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(-1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(-1, 0, 0, 1.5);
-//        driveForTime(0, -1, 0, 1);
-
-        //driveForTime(1, -1, 0, 0.25);//if the dragging foundation code doesn't work
-        //driveWithInput(0,0,0);
-//            while(opModeIsActive()){}
-        mediaPlayer.stop();
-            //while(!(getColor()[0] <20) and !(getColor()[0] > 350)
-
-
-            // run until the end of the match (driver presses STOP)
-//            while (opModeIsActive()) {
-
-                // Setup a variable for each drive wheel to save power level for telemetry
-//            double leftPower;
-//            double rightPower;
-
-                // Choose to drive using either Tank Mode, or POV Mode
-                // Comment out the method that's not used.  The default below is POV.
-
-                // POV Mode uses left stick to go forward, and right stick to turn.
-                // - This uses basic math to combine motions and is easier to drive straight.
-//            double drive = -gamepad1.left_stick_y;
-//            double turn  =  gamepad1.right_stick_x;
-//            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-//            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-                // Tank Mode uses one stick to control each wheel.
-                // - This requires no math, but it is hard to drive forward slowly and keep straight.
-                // leftPower  = -gamepad1.left_stick_y ;
-                // rightPower = -gamepad1.right_stick_y ;
-
-                // Send calculated power to wheels
-//            leftDrive.setPower(leftPower);
-//            rightDrive.setPower(rightPower);
-
-                // Show the elapsed game time and wheel power.
-                //telemetry.addData("Status", "Run Time: " + runtime.toString());
-//            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-                //telemetry.update();
-//            }
         }
 
 
@@ -264,13 +169,6 @@ public class Red_Start_Build extends LinearOpMode {
         float FrontRight = directionY - directionX - rotation;
         float BackRight = directionY + directionX - rotation;
         float BackLeft = -directionY + directionX - rotation;
-
-        // clip the right/left values so that the values never exceed +/- 1
-//        FrontRight = Range.clip(FrontRight, -1, 1);
-//        FrontLeft = Range.clip(FrontLeft, -1, 1);
-//        BackLeft = Range.clip(BackLeft, -1, 1);
-//        BackRight = Range.clip(BackRight, -1, 1);
-
         // write the values to the motors
         motorFrontRight.setPower(FrontRight);
         motorFrontLeft.setPower(FrontLeft);
