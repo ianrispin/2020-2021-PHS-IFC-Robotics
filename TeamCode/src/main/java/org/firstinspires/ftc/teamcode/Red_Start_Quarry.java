@@ -132,8 +132,8 @@ public class Red_Start_Quarry extends LinearOpMode {
         waitForStart();
         runtime.reset();
         mediaPlayer.start();
-        //current code 12/14/19
-//        driveForDistance(0,1,0.65);
+        //current code 12/14/19 distance measured in meters use time for less than 10 cm 120
+        driveForDistance(0,1,1.2);
 //        driveForTime(0,1,0,0.6);
 //        while(!(getColor(frontSensorLeft)[2] < 25)){
 //        driveWithInput(-(float)0.5,0,0);
@@ -268,11 +268,11 @@ public class Red_Start_Quarry extends LinearOpMode {
 //        whenDone.schedule(new TimerTask());
     }
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
-        double velocity = 0.8;
+        double velocity = 0.7;
         double speed = powerX + powerY;
-        double finalVelocity = velocity * speed;
-        double FinalTime = distance/finalVelocity;
-        driveForTime(powerX, powerY, 0, FinalTime + 0.2);
+        double finalVelocity = Math.abs(velocity * speed);
+        long FinalTime = (long)(1000*(distance/finalVelocity));
+        driveForTime(powerX, powerY, 0, FinalTime+50);
         driveWithInput(0,0,0);
     }
     public void dropHarvester(){

@@ -277,10 +277,10 @@ public class Blue_Start_Quarry extends LinearOpMode {
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
         double velocity = 0.8;
         double speed = powerX + powerY;
-        double finalVelocity = velocity * speed;
-        double FinalTime = distance/finalVelocity;
-        driveForTime(powerX, powerY, 0, FinalTime + 0.2);
-//        driveWithInput(0,0,0);
+        double finalVelocity = Math.abs(velocity * speed);
+        long FinalTime = (long)(1000*(distance/finalVelocity));
+        driveForTime(powerX, powerY, 0, FinalTime);
+        driveWithInput(0,0,0);
     }
     public void dropHarvester(){
         harvester.setTargetPosition(240);
