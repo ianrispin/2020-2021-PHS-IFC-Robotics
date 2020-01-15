@@ -126,8 +126,7 @@ public class Red_Start_Build extends LinearOpMode {
 
 
 
-//start robot facing the tape (servos facing center)
-//        current code 12/14/code 1/9/20
+//start robot facing the platform, partly on the depot tape.
         driveForDistance(0,-1,0.7);
         hook.setPosition(1);
         sleep(800);

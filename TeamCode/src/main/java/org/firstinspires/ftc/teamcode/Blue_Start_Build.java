@@ -130,105 +130,23 @@ public class Blue_Start_Build extends LinearOpMode {
 //        }
         mediaPlayer.start();
 
-        driveForDistance(0, -1, 0.7);
+//need to reverse strafe
+        driveForDistance(0,-1,0.7);
         hook.setPosition(1);
-        driveForDistance(0, 1, 0.7);
-//        not this
-//        driveForTime(0,1,0,.1);
-//
-//        driveForTime(-1, 0, 0, 0.75);
-//        driveForTime(0, 1, 0, 4);
-//        driveForTime(-1, 0, 0, 2.5);
-//
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(-1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(-1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(-1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//        driveForTime(1, 0, 0, 1.5);
-//        driveForTime(0, 1, 0, 1);
-//
-//        driveForTime(1, 0, 0, 0.5);
-//        driveForTime(0, -1, 0, 4);
-        //drive line code
-        while(!(getColor()[0] > 210 && getColor()[0] < 255)){
-            driveWithInput(-(float)0.5,0,0);
+        sleep(800);
+        driveForDistance(0,1,0.8);
+        driveForTime(0,0,0, 100);
+        driveForTime(0,0,-1,300);
+        sleep(800);
+        hook.setPosition(0);
+        sleep(800);
+        while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
+            driveWithInput(-(float)0.5, 0, 0);
         }
-        driveWithInput(0, 0, 0);
-//        driveForTime(0, 1, 0, .5);
-//        driveForTime(0,1,0,.1);
-////
-////        driveForTime(-1, 0, 0, 0.75);
-////        driveForTime(0, 1, 0, 4);
-////        driveForTime(-1, 0, 0, 2.5);
-////
-////        driveForTime(0, 1, 0, 1);
-////        driveForTime(1, 0, 0, 1.5);
-////        driveForTime(0, 1, 0, 1);
-////        driveForTime(-1, 0, 0, 1.5);
-////        driveForTime(0, 1, 0, 1);
-////        driveForTime(1, 0, 0, 1.5);
-////        driveForTime(0, 1, 0, 1);
-////        driveForTime(-1, 0, 0, 1.5);
-////        driveForTime(0, 1, 0, 1);
-////        driveForTime(1, 0, 0, 1.5);
-////        driveForTime(0, 1, 0, 1);
-////        driveForTime(-1, 0, 0, 1.5);
-////        driveForTime(0, 1, 0, 1);
-////        driveForTime(1, 0, 0, 1.5);
-////        driveForTime(0, 1, 0, 1);
-////
-////        driveForTime(1, 0, 0, 0.5);
-////        driveForTime(0, -1, 0, 4);
-////        while(!(getColor()[0] > 210 && getColor()[0] < 255)){
-////            driveWithInput(1,0,0);
-////        }
-        //driveWithInput(0, 0, 0);
+        driveWithInput(0,0,0);
         while(opModeIsActive()){}
         mediaPlayer.stop();
-//        not this
-//        IF IN BUILD ZONE: move to middle of mat;   drive close to end (guess right now, will have sensors later);   move forward a bit to push mat;   move back (to other end of foundation);
-//        move forward a bit; move back (to other end of foundation); move forward a bit; repeat a few times
 
-
-
-
-        
-
-        // run until the end of the match (driver presses STOP)
-//        while (opModeIsActive()) {
-//
-//            // Setup a variable for each drive wheel to save power level for telemetry
-//            double leftPower;
-//            double rightPower;
-//
-//            // Choose to drive using either Tank Mode, or POV Mode
-//            // Comment out the method that's not used.  The default below is POV.
-//
-//            // POV Mode uses left stick to go forward, and right stick to turn.
-//            // - This uses basic math to combine motions and is easier to drive straight.
-//            double drive = -gamepad1.left_stick_y;
-//            double turn  =  gamepad1.right_stick_x;
-//            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-//            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-//
-//            // Tank Mode uses one stick to control each wheel.
-//            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-//            // leftPower  = -gamepad1.left_stick_y ;
-//            // rightPower = -gamepad1.right_stick_y ;
-//
-//            // Send calculated power to wheels
-//            leftDrive.setPower(leftPower);
-//            rightDrive.setPower(rightPower);
-//
 //            // Show the elapsed game time and wheel power.
 //            telemetry.addData("Status", "Run Time: " + runtime.toString());
 //            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
@@ -301,11 +219,11 @@ public class Blue_Start_Build extends LinearOpMode {
     }
 
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
-        double velocity = 0.8;
+        double velocity = 0.7;
         double speed = powerX + powerY;
         double finalVelocity = Math.abs(velocity * speed);
         long FinalTime = (long)(1000*(distance/finalVelocity));
-        driveForTime(powerX, powerY, 0, FinalTime);
+        driveForTime(powerX, powerY, 0, FinalTime+50);
         driveWithInput(0,0,0);
     }
     double scaleInput(double dVal) {

@@ -186,7 +186,7 @@ public class Red_Start_Quarry extends LinearOpMode {
 //        raiseHarvester();
         //move to tape
         //drive on line code
-        driveForTime(0, 1, 0, 0.1);
+        driveForTime(0, 1, 0, 100);
             while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350))) {
 //            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
                 driveWithInput(-(float)0.5, 0, 0);
@@ -280,15 +280,14 @@ public class Red_Start_Quarry extends LinearOpMode {
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
 
     }
-    public void driveForTime ( float directionX, float directionY, float rotation,
-                               double moveDuration){//going to optomise this to make it better for turning
+    public void driveForTime ( float directionX, float directionY, float rotation, long moveDuration){//going to optomise this to make it better for turning
 
         Timer whenDone = new Timer();
 
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
-        whenDone.schedule(t, (long) (moveDuration * 1000));
-        while (!t.finished) {
+        whenDone.schedule(t, (long) moveDuration);
+        while (!t.finished && opModeIsActive()) {
             driveWithInput(directionX, directionY, rotation);
 
         }
@@ -297,6 +296,7 @@ public class Red_Start_Quarry extends LinearOpMode {
 
 //        whenDone.schedule(new TimerTask());
     }
+
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
         double velocity = 0.7;
         double speed = powerX + powerY;

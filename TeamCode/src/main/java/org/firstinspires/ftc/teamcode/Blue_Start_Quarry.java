@@ -159,7 +159,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
 
 
-        driveForTime(0,1, 0 , 0.1);
+        driveForTime(0,1, 0 , 100);
 
         while(!(getColor(sensorColor)[0] > 210 && getColor(sensorColor)[0] < 255)){
             driveWithInput((float)0.5,0,0);
@@ -257,28 +257,29 @@ public class Blue_Start_Quarry extends LinearOpMode {
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
 
     }
-    public void driveForTime(float directionX,float directionY,float rotation,double moveDuration){//going to optomise this to make it better for turning
+    public void driveForTime ( float directionX, float directionY, float rotation, long moveDuration){//going to optomise this to make it better for turning
 
         Timer whenDone = new Timer();
 
         MovementTimer t = new MovementTimer();
 //        boolean finished = t.finished;
-        whenDone.schedule(t,(long)(moveDuration * 1000));
-        while(!t.finished && opModeIsActive()) {
-            driveWithInput(directionX,directionY,rotation);
-        }
-        driveWithInput(0, 0, 0);
+        whenDone.schedule(t, (long) moveDuration);
+        while (!t.finished && opModeIsActive()) {
+            driveWithInput(directionX, directionY, rotation);
 
+        }
+        driveWithInput(0,0,0);
 
 
 //        whenDone.schedule(new TimerTask());
     }
+
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
-        double velocity = 0.8;
+        double velocity = 0.7;
         double speed = powerX + powerY;
         double finalVelocity = Math.abs(velocity * speed);
         long FinalTime = (long)(1000*(distance/finalVelocity));
-        driveForTime(powerX, powerY, 0, FinalTime);
+        driveForTime(powerX, powerY, 0, FinalTime+50);
         driveWithInput(0,0,0);
     }
     public void dropHarvester(){
