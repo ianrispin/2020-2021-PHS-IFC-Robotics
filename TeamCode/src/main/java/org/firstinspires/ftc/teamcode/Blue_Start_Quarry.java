@@ -129,7 +129,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         runtime.reset();
         mediaPlayer.start();
         //Distance measured in meters use time for less than 10 cm 120
-        driveForDistance(0,1,0.7);
+        driveForDistance(0,1,0.65);
         sleep(1000); //dropHarvester();
         sleep(1000);
         driveForDistance(0, -1, 0.3);

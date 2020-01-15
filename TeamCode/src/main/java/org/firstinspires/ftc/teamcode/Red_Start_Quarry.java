@@ -135,7 +135,7 @@ public class Red_Start_Quarry extends LinearOpMode {
         //Distance measured in meters use time for less than 10 cm;    20 cm x 10 cm blocks;    6 blocks
         //Drops blocks right in the build zone and moves back over to quarry
 
-        driveForDistance(0,1,0.7);
+        driveForDistance(0,1,0.65);
         sleep(1000); //dropHarvester();
         sleep(1000);
         driveForDistance(0, -1, 0.3);
