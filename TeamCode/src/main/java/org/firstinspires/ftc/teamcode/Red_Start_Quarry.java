@@ -132,12 +132,37 @@ public class Red_Start_Quarry extends LinearOpMode {
         waitForStart();
         runtime.reset();
         mediaPlayer.start();
-        //Distance measured in meters use time for less than 10 cm 120
+        //Distance measured in meters use time for less than 10 cm;    20 cm x 10 cm blocks;    6 blocks
+        //Drops blocks right in the build zone and moves back over to quarry
+
         driveForDistance(0,1,0.7);
         sleep(1000); //dropHarvester();
         sleep(1000);
         driveForDistance(0, -1, 0.3);
         driveForDistance(1, 0, 1);
+
+        sleep(1000); //raiseHarvester();
+        sleep(1000);
+        driveForDistance(-1, 0, 1.2);
+        driveForDistance(0, 1, 0.3);
+        sleep(1000); //dropHarvester();
+        sleep(1000);
+        driveForDistance(0, -1, 0.3);
+        driveForDistance(1, 0, 1.2);
+
+        sleep(1000); //raiseHarvester();
+        sleep(1000);
+        driveForDistance(-1, 0, 1.4);
+        driveForDistance(0, 1, 0.3);
+        sleep(1000); //dropHarvester();
+        sleep(1000);
+        driveForDistance(0, -1, 0.3);
+        driveForDistance(1, 0, 1.4);
+
+        sleep(1000); //raiseHarvester();
+        sleep(1000);
+
+
 
 //        driveForTime(0,1,0,0.6);
 //        while(!(getColor(frontSensorLeft)[2] < 25)){
