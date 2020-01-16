@@ -136,30 +136,30 @@ public class Red_Start_Quarry extends LinearOpMode {
         //Drops blocks right in the build zone and moves back over to quarry
 
         driveForDistance(0,1,0.65);
-        sleep(1000); //dropHarvester();
+        dropHarvester();
         sleep(1000);
         driveForDistance(0, -1, 0.3);
         driveForDistance(1, 0, 1);
 
-        sleep(1000); //raiseHarvester();
+        raiseHarvester();
         sleep(1000);
         driveForDistance(-1, 0, 1.2);
         driveForDistance(0, 1, 0.3);
-        sleep(1000); //dropHarvester();
+        dropHarvester();
         sleep(1000);
         driveForDistance(0, -1, 0.3);
         driveForDistance(1, 0, 1.2);
 
-        sleep(1000); //raiseHarvester();
+        raiseHarvester();
         sleep(1000);
         driveForDistance(-1, 0, 1.4);
         driveForDistance(0, 1, 0.3);
-        sleep(1000); //dropHarvester();
+        dropHarvester();
         sleep(1000);
         driveForDistance(0, -1, 0.3);
         driveForDistance(1, 0, 1.4);
 
-        sleep(1000); //raiseHarvester();
+        raiseHarvester();
         sleep(1000);
 
 
