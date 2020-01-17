@@ -134,13 +134,13 @@ public class Blue_Start_Build extends LinearOpMode {
         driveForDistance(0,-1,0.7);
         hook.setPosition(1);
         sleep(800);
-        driveForDistance(0,1,0.8);
+        driveForDistance(0,1,0.9);
         driveForTime(0,0,0, 100);
-        driveForTime(0,0,-1,300);
+        driveForTime(0,0,-1,600);
         sleep(800);
         hook.setPosition(0);
         sleep(800);
-        while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
+        while(!(getColor()[0] > 210 && getColor()[0] < 255)){
             driveWithInput(-(float)0.5, 0, 0);
         }
         driveWithInput(0,0,0);

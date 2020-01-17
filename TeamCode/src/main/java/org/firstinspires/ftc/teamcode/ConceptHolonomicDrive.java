@@ -48,12 +48,14 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
     DcMotor verticalLift;
+    Servo hook;
+    Boolean hookDown = false;
     double liftHeight = 0;
     String harvestMode = "POS";
     double maxLiftHeight = 12000;
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
-    int maxHarvesterEncoder = 240;
+    int maxHarvesterEncoder = 160;
 
     // Define class members
 //    Servo harvester;
@@ -102,6 +104,7 @@ float hsvValues[] = {0F, 0F, 0F};
 //        harvester = hardwareMap.get(Servo.class, "harvester");
         harvester = hardwareMap.dcMotor.get("harvester");
         verticalLift = hardwareMap.dcMotor.get("verticalLift");
+        hook = hardwareMap.get(Servo.class, "hook");
         verticalLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         verticalLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -161,7 +164,11 @@ float hsvValues[] = {0F, 0F, 0F};
         }
         if (gamepad1.a) {
 //            driveWithInput(0, -1, 0);
-//            verticalLift.setTargetPosition(0);
+            if(!hookDown){
+                hook.setPosition(1);
+            }else{
+                hook.setPosition(0);
+            }
         } else if (gamepad1.y) {
             driveWithInput(0, 1, 0);
         } else if (gamepad1.x) {
@@ -316,7 +323,7 @@ float hsvValues[] = {0F, 0F, 0F};
         if(harvestMode == "POS") {
             harvester.setTargetPosition(maxHarvesterEncoder);
         }else{
-            harvester.setPower(0.8);
+            harvester.setPower(1);
         }
 
 
@@ -325,7 +332,7 @@ float hsvValues[] = {0F, 0F, 0F};
         if(harvestMode == "POS") {
             harvester.setTargetPosition(0);
         }else{
-            harvester.setPower(-0.8);
+            harvester.setPower(1);
         }
     }
 
