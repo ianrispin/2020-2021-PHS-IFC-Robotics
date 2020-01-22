@@ -140,8 +140,10 @@ public class Blue_Start_Build extends LinearOpMode {
         sleep(800);
         hook.setPosition(0);
         sleep(800);
-        while(!(getColor()[0] > 210 && getColor()[0] < 255)){
-            driveWithInput(-(float)0.5, 0, 0);
+        driveForTime(0,0,-1,600);
+        driveForTime(0,0,0,200);
+        while(!(getColor()[0] > 210 && getColor()[0] < 255) && opModeIsActive()){
+            driveWithInput(0, (float)0.5, 0);
         }
         driveWithInput(0,0,0);
         while(opModeIsActive()){}

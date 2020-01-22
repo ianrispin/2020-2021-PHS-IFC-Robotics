@@ -136,7 +136,9 @@ public class Red_Start_Build extends LinearOpMode {
         sleep(800);
         hook.setPosition(0);
         sleep(800);
-        while(!(getColor()[0] <20) && !(getColor()[0] > 350)) {
+        driveForTime(0,0,1,300);
+        driveForTime(0,0,0,200);
+        while(!(getColor()[0] <20) && !(getColor()[0] > 350)&& opModeIsActive()) {
             driveWithInput((float)0.5, 0, 0);
         }
         driveWithInput(0,0,0);

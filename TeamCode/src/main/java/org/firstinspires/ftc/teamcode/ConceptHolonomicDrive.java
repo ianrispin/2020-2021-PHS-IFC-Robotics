@@ -51,11 +51,11 @@ public class ConceptHolonomicDrive extends OpMode {
     Servo hook;
     Boolean hookDown = false;
     double liftHeight = 0;
-    String harvestMode = "POS";
+    String harvestMode = "MV";
     double maxLiftHeight = 12000;
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
-    int maxHarvesterEncoder = 160;
+    int maxHarvesterEncoder = 185;
 
     // Define class members
 //    Servo harvester;
@@ -119,7 +119,7 @@ float hsvValues[] = {0F, 0F, 0F};
             harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             harvester.setTargetPosition(0);
             harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            harvester.setPower(0.5);
+            harvester.setPower(0.65);
         }else{
             harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
@@ -166,13 +166,25 @@ float hsvValues[] = {0F, 0F, 0F};
 //            driveWithInput(0, -1, 0);
             if(!hookDown){
                 hook.setPosition(1);
+                hookDown = true;
             }else{
                 hook.setPosition(0);
+                hookDown = false;
             }
         } else if (gamepad1.y) {
             driveWithInput(0, 1, 0);
         } else if (gamepad1.x) {
-            driveWithInput(-1, 0, 0);
+            if(harvestMode == "POS"){
+                harvestMode = "MV";
+                harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }else{
+                harvestMode = "POS";
+                harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                harvester.setTargetPosition(0);
+                harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                harvester.setPower(0.65);
+            }
+//            driveWithInput(-1, 0, 0);
         } else if (gamepad1.b) {
 //            driveWithInput(1, 0, 0);
             harvester.setTargetPosition(harvester.getCurrentPosition());
@@ -181,7 +193,8 @@ float hsvValues[] = {0F, 0F, 0F};
         }
         //maxServoAngle(34 degrees)
         if(gamepad1.right_bumper){
-            dropHarvester();
+//            dropHarvester();
+            holdUnderBridge();
         }
         else if(gamepad1.left_bumper){
             raiseHarvester();
@@ -332,9 +345,11 @@ float hsvValues[] = {0F, 0F, 0F};
         if(harvestMode == "POS") {
             harvester.setTargetPosition(0);
         }else{
-            harvester.setPower(1);
+            harvester.setPower(-1);
         }
     }
+    public void holdUnderBridge(){ harvester.setTargetPosition(90);}
+
 
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,

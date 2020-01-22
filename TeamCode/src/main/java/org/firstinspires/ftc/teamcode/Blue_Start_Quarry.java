@@ -128,12 +128,39 @@ public class Blue_Start_Quarry extends LinearOpMode {
         waitForStart();
         runtime.reset();
         mediaPlayer.start();
-        //Distance measured in meters use time for less than 10 cm 120
+//        //Distance measured in meters use time for less than 10 cm 120
+//        driveForDistance(0,1,0.65);
+//        dropHarvester();
+//        sleep(1000);
+//        driveForDistance(0, -1, 0.3);
+//        driveForDistance(-1, 0, 1);
+//
         driveForDistance(0,1,0.65);
         dropHarvester();
         sleep(1000);
         driveForDistance(0, -1, 0.3);
         driveForDistance(-1, 0, 1);
+
+        raiseHarvester();
+        sleep(1000);
+        driveForDistance(1, 0, 1.2);
+        driveForDistance(0, 1, 0.3);
+        dropHarvester();
+        sleep(1000);
+        driveForDistance(0, -1, 0.3);
+        driveForDistance(-1, 0, 1.2);
+
+        raiseHarvester();
+        sleep(1000);
+        driveForDistance(1, 0, 1.4);
+        driveForDistance(0, 1, 0.3);
+        dropHarvester();
+        sleep(1000);
+        driveForDistance(0, -1, 0.3);
+        driveForDistance(-1, 0, 1.4);
+
+        raiseHarvester();
+        sleep(1000);
 // actual autonomous psudocode
         //runtime.reset();
         //1 second = 80cm
@@ -283,7 +310,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         driveWithInput(0,0,0);
     }
     public void dropHarvester(){
-        harvester.setTargetPosition(240);
+        harvester.setTargetPosition(180);
     }
     public void raiseHarvester(){
         harvester.setTargetPosition(0);

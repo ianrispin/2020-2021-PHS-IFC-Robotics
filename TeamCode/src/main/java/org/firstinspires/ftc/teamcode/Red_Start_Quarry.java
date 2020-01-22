@@ -135,6 +135,39 @@ public class Red_Start_Quarry extends LinearOpMode {
         //Distance measured in meters use time for less than 10 cm;    20 cm x 10 cm blocks;    6 blocks
         //Drops blocks right in the build zone and moves back over to quarry
 
+//        while(!(getColor(frontSensorLeft)[2] < 25)){
+//        driveWithInput(-(float)0.5,0,0);
+//        }
+        //double distance = ((runtime.time() -50)*0.35)/1000
+//        driveForTime(0,0,0,100);
+//        driveForDistance(-1,0,0.15);
+        //driveForTime(0,0,0,100);
+        //dropHarvester();
+        //sleep(400);
+        //distance += .15;
+        //diveForDistance(1,0,distance+0.8);
+        //raiseHarvester()
+        //sleep(400);
+        //driveForDistance(0,-1,0.15);
+        //holdUnderBridge();
+        //sleep(400);
+        //driveForDistance(-1,0,distance+0.8+0.6);
+        //raiseHarvester();
+        //sleep(400);
+        //driveForDistance(0,1,0.15)
+        //dropHarvester();
+        //sleep(400);
+        //driveForDistance(1,0,distance+0.8+0.6);
+        //raiseHarvester()
+        //sleep(400);
+//        driveForTime(0,0,-1,400);
+        //holdUnderBridge();
+        //sleep(400);
+        //while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350)) && opModeIsActive()) {
+        //                driveWithInput(0, (float)0.5, 0);
+        //            }
+
+
         driveForDistance(0,1,0.65);
         dropHarvester();
         sleep(1000);
@@ -168,7 +201,7 @@ public class Red_Start_Quarry extends LinearOpMode {
 //        while(!(getColor(frontSensorLeft)[2] < 25)){
 //        driveWithInput(-(float)0.5,0,0);
 //        }
-//        double distance = (0.4)*runtime.time();
+//        double distance = (0.35)*runtime.time();
 //        driveForDistance(0,1,0.05);
 //        driveForDistance(-1,0,0.13);
 //        dropHarvester();
@@ -186,48 +219,14 @@ public class Red_Start_Quarry extends LinearOpMode {
 //        raiseHarvester();
         //move to tape
         //drive on line code
-        driveForTime(0, 1, 0, 100);
-            while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350))) {
-//            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
-                driveWithInput(-(float)0.5, 0, 0);
-            }
-        driveWithInput(0,0,0);
+//        driveForTime(0, 1, 0, 100);
+//            while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350))) {
+////            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
+//                driveWithInput(-(float)0.5, 0, 0);
+//            }
+//        driveWithInput(0,0,0);
             while(opModeIsActive()){}
             mediaPlayer.stop();
-            //while(!(getColor()[0] <20) and !(getColor()[0] > 350)
-
-
-            // run until the end of the match (driver presses STOP)
-//            while (opModeIsActive()) {
-
-                // Setup a variable for each drive wheel to save power level for telemetry
-//            double leftPower;
-//            double rightPower;
-
-                // Choose to drive using either Tank Mode, or POV Mode
-                // Comment out the method that's not used.  The default below is POV.
-
-                // POV Mode uses left stick to go forward, and right stick to turn.
-                // - This uses basic math to combine motions and is easier to drive straight.
-//            double drive = -gamepad1.left_stick_y;
-//            double turn  =  gamepad1.right_stick_x;
-//            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-//            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-                // Tank Mode uses one stick to control each wheel.
-                // - This requires no math, but it is hard to drive forward slowly and keep straight.
-                // leftPower  = -gamepad1.left_stick_y ;
-                // rightPower = -gamepad1.right_stick_y ;
-
-                // Send calculated power to wheels
-//            leftDrive.setPower(leftPower);
-//            rightDrive.setPower(rightPower);
-
-                // Show the elapsed game time and wheel power.
-                //telemetry.addData("Status", "Run Time: " + runtime.toString());
-//            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-                //telemetry.update();
-//            }
         }
 
 
@@ -306,8 +305,9 @@ public class Red_Start_Quarry extends LinearOpMode {
         driveWithInput(0,0,0);
     }
     public void dropHarvester(){
-            harvester.setTargetPosition(240);
+            harvester.setTargetPosition(180);
     }
+    public void holdUnderBridge(){ harvester.setTargetPosition(90);}
     public void raiseHarvester(){
         harvester.setTargetPosition(0);
     }
