@@ -193,8 +193,8 @@ float hsvValues[] = {0F, 0F, 0F};
         }
         //maxServoAngle(34 degrees)
         if(gamepad1.right_bumper){
-//            dropHarvester();
-            holdUnderBridge();
+            dropHarvester();
+//            holdUnderBridge();
         }
         else if(gamepad1.left_bumper){
             raiseHarvester();
@@ -348,7 +348,7 @@ float hsvValues[] = {0F, 0F, 0F};
             harvester.setPower(-1);
         }
     }
-    public void holdUnderBridge(){ harvester.setTargetPosition(90);}
+    public void holdUnderBridge(){ harvester.setTargetPosition(140);}
 
 
     double scaleInput(double dVal) {

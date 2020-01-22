@@ -67,6 +67,7 @@ public class Red_Start_Build extends LinearOpMode {
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
     Servo hook;
+    DcMotor harvester;
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F, 0F, 0F};
@@ -99,6 +100,10 @@ public class Red_Start_Build extends LinearOpMode {
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        harvester.setTargetPosition(0);
+        harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        harvester.setPower(1);
         hook = hardwareMap.get(Servo.class, "hook");
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
@@ -214,6 +219,7 @@ public class Red_Start_Build extends LinearOpMode {
         driveForTime(powerX, powerY, 0, FinalTime+50);
         driveWithInput(0,0,0);
     }
+    public void holdUnderBridge(){ harvester.setTargetPosition(140);}
 
     double scaleInput ( double dVal){
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,

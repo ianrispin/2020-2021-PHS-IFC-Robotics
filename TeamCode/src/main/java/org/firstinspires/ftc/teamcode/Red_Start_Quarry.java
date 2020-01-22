@@ -307,7 +307,7 @@ public class Red_Start_Quarry extends LinearOpMode {
     public void dropHarvester(){
             harvester.setTargetPosition(180);
     }
-    public void holdUnderBridge(){ harvester.setTargetPosition(90);}
+    public void holdUnderBridge(){ harvester.setTargetPosition(140);}
     public void raiseHarvester(){
         harvester.setTargetPosition(0);
     }
