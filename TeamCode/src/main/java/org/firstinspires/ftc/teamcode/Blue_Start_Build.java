@@ -101,6 +101,7 @@ public class Blue_Start_Build extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        harvester = hardwareMap.dcMotor.get("harvester");
         motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -145,8 +146,11 @@ public class Blue_Start_Build extends LinearOpMode {
         sleep(800);
         hook.setPosition(0);
         sleep(800);
-        driveForTime(0,0,-1,600);
-        driveForTime(0,0,0,200);
+        driveForTime(0,0,-1,625);
+        sleep(200);
+        holdUnderBridge();
+//        driveForTime(0,0,0,200);
+        sleep(1000);
         while(!(getColor()[0] > 210 && getColor()[0] < 255) && opModeIsActive()){
             driveWithInput(0, (float)0.5, 0);
         }
