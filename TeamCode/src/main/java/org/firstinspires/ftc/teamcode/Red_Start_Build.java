@@ -96,12 +96,12 @@ public class Red_Start_Build extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        harvester = hardwareMap.dcMotor.get("harvester");
         motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        harvester = hardwareMap.dcMotor.get("harvester");
         harvester.setTargetPosition(0);
         harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         harvester.setPower(1);
@@ -136,9 +136,9 @@ public class Red_Start_Build extends LinearOpMode {
         driveForDistance(0,-1,0.7);
         hook.setPosition(1);
         sleep(800);
-        driveForDistance(0,1,0.9);
+        driveForDistance(0,1,0.8);
         driveForTime(0,0,0, 100);
-        driveForTime(0,0,-1,600);
+        driveForTime(0,0,1,600);
         sleep(800);
         hook.setPosition(0);
         sleep(800);
