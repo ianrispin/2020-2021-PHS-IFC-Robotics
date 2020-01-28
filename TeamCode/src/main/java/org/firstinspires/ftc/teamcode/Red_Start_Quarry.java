@@ -176,7 +176,9 @@ public class Red_Start_Quarry extends LinearOpMode {
 
         holdUnderBridge();
         sleep(1000);
-        driveForDistance(-1, 0, 1.2);
+        driveForDistance(-1, 0, 1.5);
+        raiseHarvester();
+        sleep(1000);
         driveForDistance(0, 1, 0.4);
         dropHarvester();
         sleep(1000);
@@ -185,7 +187,9 @@ public class Red_Start_Quarry extends LinearOpMode {
 
         holdUnderBridge();
         sleep(1000);
-        driveForDistance(-1, 0, 1.4);
+        driveForDistance(-1, 0, 1.5);
+        raiseHarvester();
+        sleep(1000);
         driveForDistance(0, 1, 0.4);
         dropHarvester();
         sleep(1000);
