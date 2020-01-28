@@ -135,6 +135,8 @@ public class Red_Start_Quarry extends LinearOpMode {
         //Distance measured in meters use time for less than 10 cm;    20 cm x 10 cm blocks;    6 blocks
         //Drops blocks right in the build zone and moves back over to quarry
 
+
+//        driveForDistance(0,1,.7);
 //        while(!(getColor(frontSensorLeft)[2] < 25)){
 //        driveWithInput(-(float)0.5,0,0);
 //        }
