@@ -69,6 +69,7 @@ public class Red_Start_Quarry extends LinearOpMode {
     ColorSensor frontSensorLeft;
     ColorSensor frontSensorRight;
     DcMotor harvester;
+    DcMotor verticalLift;
 
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
@@ -98,6 +99,9 @@ public class Red_Start_Quarry extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        verticalLift = hardwareMap.dcMotor.get("verticalLift");
+        verticalLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        verticalLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -171,21 +175,40 @@ public class Red_Start_Quarry extends LinearOpMode {
 
 
         driveForDistance(0,1,0.65);
+        while(!(getColor(frontSensorLeft)[2] < 25)){
+        driveWithInput(-(float)0.5,0,0);
+        }
+        telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", (getColor(frontSensorLeft)[2])));
+        double distance = ((runtime.time() -50)*0.35)/1000 + 0.15;
+        driveForDistance(-1,0,0.15);
+        driveForDistance(0,1,0.05);
         dropHarvester();
         sleep(1000);
+        verticalLift.setPower(-1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
         driveForDistance(0, -1, 0.4);
-        driveForDistance(1, 0, 1);
+        driveForDistance(1, 0, 1.4+distance);
 
         holdUnderBridge();
         sleep(1000);
-        driveForDistance(-1, 0, 1.5);
+        driveForDistance(-1, 0, 1.4 + distance + 0.6);
         raiseHarvester();
         sleep(1000);
+        verticalLift.setPower(1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
         driveForDistance(0, 1, 0.4);
         dropHarvester();
         sleep(1000);
+        verticalLift.setPower(-1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
         driveForDistance(0, -1, 0.4);
-        driveForDistance(1, 0, 1.2);
+        driveForDistance(1, 0, 1.5+distance+0.6);
 
         holdUnderBridge();
         sleep(1000);
@@ -313,7 +336,7 @@ public class Red_Start_Quarry extends LinearOpMode {
     public void dropHarvester(){
             harvester.setTargetPosition(180);
     }
-    public void holdUnderBridge(){ harvester.setTargetPosition(140);}
+    public void holdUnderBridge(){ harvester.setTargetPosition(125);}
     public void raiseHarvester(){
         harvester.setTargetPosition(0);
     }
