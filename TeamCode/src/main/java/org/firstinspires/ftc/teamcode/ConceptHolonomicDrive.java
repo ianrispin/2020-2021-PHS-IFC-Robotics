@@ -47,6 +47,8 @@ public class ConceptHolonomicDrive extends OpMode {
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
+    ColorSensor frontSensorRight;
+    ColorSensor frontSensorLeft;
     DcMotor verticalLift;
     Servo hook;
     Boolean hookDown = false;
@@ -124,6 +126,9 @@ float hsvValues[] = {0F, 0F, 0F};
             harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+
+        frontSensorRight = hardwareMap.get(ColorSensor.class, "frontSensorRight");
+        frontSensorLeft = hardwareMap.get(ColorSensor.class, "frontSensorLeft");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 //        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
@@ -172,7 +177,8 @@ float hsvValues[] = {0F, 0F, 0F};
                 hookDown = false;
             }
         } else if (gamepad1.y) {
-            driveWithInput(0, 1, 0);
+//            driveWithInput(0, 1, 0);
+            foundColor = getColor(frontSensorLeft)[2];
         } else if (gamepad1.x) {
             if(harvestMode == "POS"){
                 harvestMode = "MV";

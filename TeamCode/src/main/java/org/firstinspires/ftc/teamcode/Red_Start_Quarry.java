@@ -102,6 +102,7 @@ public class Red_Start_Quarry extends LinearOpMode {
         verticalLift = hardwareMap.dcMotor.get("verticalLift");
         verticalLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         verticalLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        verticalLift.setPower(0);
         motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -174,14 +175,15 @@ public class Red_Start_Quarry extends LinearOpMode {
         //            }
 
 
-        driveForDistance(0,1,0.65);
-        while(!(getColor(frontSensorLeft)[2] < 25)){
+        driveForDistance(0,1,0.60);
+        sleep(1500);
+        while(!(getColor(frontSensorLeft)[2] > 22 && getColor(frontSensorLeft)[2] < 40) && opModeIsActive()){
         driveWithInput(-(float)0.5,0,0);
         }
         telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", (getColor(frontSensorLeft)[2])));
         double distance = ((runtime.time() -50)*0.35)/1000 + 0.15;
         driveForDistance(-1,0,0.15);
-        driveForDistance(0,1,0.05);
+        driveForDistance(0,1,0.03);
         dropHarvester();
         sleep(1000);
         verticalLift.setPower(-1);
