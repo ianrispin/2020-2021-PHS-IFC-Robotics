@@ -150,7 +150,7 @@ float hsvValues[] = {0F, 0F, 0F};
 
         // left stick controls direction
         // right stick X controls rotation
-        float foundColor = 0;
+        String foundColor = "";
 
 //        float gamepad1LeftY = -gamepad1.left_stick_y;
 //        float gamepad1LeftX = gamepad1.left_stick_x;
@@ -178,7 +178,7 @@ float hsvValues[] = {0F, 0F, 0F};
             }
         } else if (gamepad1.y) {
 //            driveWithInput(0, 1, 0);
-            foundColor = getColor(frontSensorLeft)[2];
+            foundColor = getColor(frontSensorLeft)[0] + " " + getColor(frontSensorLeft)[1] + " " + getColor(frontSensorLeft)[2];
         } else if (gamepad1.x) {
             if(harvestMode == "POS"){
                 harvestMode = "MV";
@@ -230,7 +230,9 @@ float hsvValues[] = {0F, 0F, 0F};
 //        if (gamepad1LeftY !== 0) {
 //            getColor();
 //        }
-        telemetry.addData("Found Hue", "found " + String.format("%.2f", foundColor));
+//        telemetry.addData("Found Hue", "found " + String.format("%.2f", foundColor));
+        telemetry.addData("Found Hue", "found " +  foundColor);
+
 
 
 
