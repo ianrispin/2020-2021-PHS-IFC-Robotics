@@ -182,7 +182,9 @@ public class Red_Start_Quarry extends LinearOpMode {
         driveWithInput(-(float)0.5,0,0);
         }
         telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", (getColor(frontSensorLeft)[2])));
-        double distance = ((runtime.time() -50)*0.35)/1000 + 0.07;
+        double distance = ((runtime.time() -50)*0.35)/1000 + 0.15;
+        driveForTime(0,0,0,100);
+        sleep(500);
         driveForDistance(-1,0,0.07);
         driveForDistance(0,1,0.03);
         dropHarvester();
