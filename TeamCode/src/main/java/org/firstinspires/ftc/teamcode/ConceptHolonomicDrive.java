@@ -58,6 +58,8 @@ public class ConceptHolonomicDrive extends OpMode {
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
     int maxHarvesterEncoder = 185;
+    float desiredHarvesterPos = 0;
+    boolean harvesterIsMoving = false;
 
     // Define class members
 //    Servo harvester;
@@ -117,14 +119,14 @@ float hsvValues[] = {0F, 0F, 0F};
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if(harvestMode == "POS") {
-            harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            harvester.setTargetPosition(0);
-            harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            harvester.setPower(0.65);
-        }else{
+//        if(harvestMode == "POS") {
+//            harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            harvester.setTargetPosition(0);
+//            harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            harvester.setPower(0.65);
+//        }else{
             harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+//        }
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
 
         frontSensorRight = hardwareMap.get(ColorSensor.class, "frontSensorRight");
@@ -178,17 +180,17 @@ float hsvValues[] = {0F, 0F, 0F};
             }
         } else if (gamepad1.y) {
 //            driveWithInput(0, 1, 0);
-            foundColor = getColor(frontSensorLeft)[0] + " " + getColor(frontSensorLeft)[1] + " " + getColor(frontSensorLeft)[2];
+            foundColor = getColor(sensorColor)[0] + " " + getColor(sensorColor)[1] + " " + getColor(sensorColor)[2];
         } else if (gamepad1.x) {
             if(harvestMode == "POS"){
                 harvestMode = "MV";
                 harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }else{
                 harvestMode = "POS";
-                harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                harvester.setTargetPosition(0);
-                harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                harvester.setPower(0.65);
+//                harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                harvester.setTargetPosition(0);
+//                harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                harvester.setPower(0.65);
             }
 //            driveWithInput(-1, 0, 0);
         } else if (gamepad1.b) {
@@ -208,6 +210,9 @@ float hsvValues[] = {0F, 0F, 0F};
             if(harvestMode != "POS"){
                 harvester.setPower(0);
             }
+        }
+        if(harvesterIsMoving && harvestMode == "POS"){
+            moveHarvesterToPosition(desiredHarvesterPos);
         }
 
         if(gamepad1.right_trigger - gamepad1.left_trigger < 0 && verticalLift.getCurrentPosition() >= -maxLiftHeight || gamepad1.right_trigger - gamepad1.left_trigger > 0 && verticalLift.getCurrentPosition() <= 0) {
@@ -249,6 +254,21 @@ float hsvValues[] = {0F, 0F, 0F};
      * scaled value is less than linear.  This is to make it easier to drive
      * the robot more precisely at slower speeds.
      */
+
+    // move to position method.
+    public void moveHarvesterToPosition(float desiredPosition){
+        if(desiredPosition - harvester.getCurrentPosition() != 0) {
+            float powerMovement = (desiredPosition - harvester.getCurrentPosition()) / Math.abs(desiredPosition - harvester.getCurrentPosition());
+            harvester.setPower(powerMovement);
+        }else {
+            harvester.setPower(0);
+            harvesterIsMoving = false;
+        }
+
+    }
+
+
+
     public float[] getColor(ColorSensor sensor) {
 //        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         // get a reference to the color sensor.
@@ -342,7 +362,13 @@ float hsvValues[] = {0F, 0F, 0F};
 
 //            harvester.setPosition(0.6);
         if(harvestMode == "POS") {
-            harvester.setTargetPosition(maxHarvesterEncoder);
+//            harvester.setTargetPosition(maxHarvesterEncoder);
+
+//                moveHarvesterToPosition(maxHarvesterEncoder);
+            desiredHarvesterPos = maxHarvesterEncoder;
+            if(!harvesterIsMoving){
+                harvesterIsMoving = true;
+            }
         }else{
             harvester.setPower(1);
         }
@@ -351,7 +377,12 @@ float hsvValues[] = {0F, 0F, 0F};
     }
     public void raiseHarvester(){
         if(harvestMode == "POS") {
-            harvester.setTargetPosition(0);
+//            harvester.setTargetPosition(0);
+//                moveHarvesterToPosition(0);
+            desiredHarvesterPos = 0;
+            if(!harvesterIsMoving){
+                harvesterIsMoving = true;
+            }
         }else{
             harvester.setPower(-1);
         }

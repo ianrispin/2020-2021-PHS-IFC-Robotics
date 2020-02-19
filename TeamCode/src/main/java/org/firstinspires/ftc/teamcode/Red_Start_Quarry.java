@@ -182,10 +182,10 @@ public class Red_Start_Quarry extends LinearOpMode {
         driveWithInput(-(float)0.5,0,0);
         }
         telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", (getColor(frontSensorLeft)[2])));
-        double distance = ((runtime.time() -50)*0.35)/1000 + 0.15;
+        double distance = ((runtime.time() -50)*0.35)/1000 + 0.16;
         driveForTime(0,0,0,100);
         sleep(500);
-        driveForDistance(-1,0,0.07);
+        driveForDistance(-1,0,0.16);
         driveForDistance(0,1,0.03);
         dropHarvester();
         sleep(1000);
@@ -199,6 +199,7 @@ public class Red_Start_Quarry extends LinearOpMode {
         holdUnderBridge();
         sleep(1000);
         driveForDistance(-1, 0, 1.4 + distance + 0.6);
+        driveForTime(0,0,0,100);
         raiseHarvester();
         sleep(1000);
         verticalLift.setPower(1);
@@ -215,19 +216,25 @@ public class Red_Start_Quarry extends LinearOpMode {
         driveForDistance(0, -1, 0.4);
         driveForDistance(1, 0, 1.5+distance+0.6);
 
+        sleep(1000);
+        verticalLift.setPower(1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
+
         holdUnderBridge();
         sleep(1000);
-        driveForDistance(-1, 0, 1.5);
-        raiseHarvester();
-        sleep(1000);
-        driveForDistance(0, 1, 0.4);
-        dropHarvester();
-        sleep(1000);
-        driveForDistance(0, -1, 0.4);
-        driveForDistance(1, 0, 1.4);
-
-        raiseHarvester();
-        sleep(1000);
+//        driveForDistance(-1, 0, 1.5);
+//        raiseHarvester();
+//        sleep(1000);
+//        driveForDistance(0, 1, 0.4);
+//        dropHarvester();
+//        sleep(1000);
+//        driveForDistance(0, -1, 0.4);
+//        driveForDistance(1, 0, 1.4);
+//
+//        raiseHarvester();
+//        sleep(1000);
 
 
 
@@ -254,11 +261,15 @@ public class Red_Start_Quarry extends LinearOpMode {
         //move to tape
         //drive on line code
 //        driveForTime(0, 1, 0, 100);
-//            while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350))) {
+//        while(!((getColor(sensorColor)[0] < 30) || (getColor(sensorColor)[0] > 340))&& opModeIsActive()) {
+////            driveWithInput(0, (float)0.5, 0);
+////        }
+////        while (!((getColor(sensorColor)[0] < 20)) && (!(getColor(sensorColor)[0] > 350))) {
 ////            driveForTime(float directionX,float directionY,float rotation,double moveDuration)
-//                driveWithInput(-(float)0.5, 0, 0);
-//            }
-//        driveWithInput(0,0,0);
+//            driveWithInput(-(float)0.5, 0, 0);
+//        }
+        driveForDistance(-1,0,.47);
+        driveWithInput(0,0,0);
             while(opModeIsActive()){}
             mediaPlayer.stop();
         }
