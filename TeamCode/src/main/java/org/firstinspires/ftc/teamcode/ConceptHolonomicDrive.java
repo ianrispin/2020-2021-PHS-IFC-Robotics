@@ -57,7 +57,7 @@ public class ConceptHolonomicDrive extends OpMode {
     double maxLiftHeight = 12000;
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
-    int maxHarvesterEncoder = 185;
+    int maxHarvesterEncoder = 155;
     float desiredHarvesterPos = 0;
     boolean harvesterIsMoving = false;
 
@@ -133,8 +133,8 @@ float hsvValues[] = {0F, 0F, 0F};
         frontSensorLeft = hardwareMap.get(ColorSensor.class, "frontSensorLeft");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
-//        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
-        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.demoman);
+        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate2);
+//        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.demoman);
         mediaPlayer.start();
 
 //        ourColorSensor = new ColorSensorValue();
@@ -184,10 +184,11 @@ float hsvValues[] = {0F, 0F, 0F};
         } else if (gamepad1.x) {
             if(harvestMode == "POS"){
                 harvestMode = "MV";
-                harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }else{
                 harvestMode = "POS";
-//                harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                harvester.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //                harvester.setTargetPosition(0);
 //                harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //                harvester.setPower(0.65);
@@ -237,6 +238,9 @@ float hsvValues[] = {0F, 0F, 0F};
 //        }
 //        telemetry.addData("Found Hue", "found " + String.format("%.2f", foundColor));
         telemetry.addData("Found Hue", "found " +  foundColor);
+        telemetry.addData("Harvester Mode", harvestMode);
+        telemetry.addData("Current Harvester Encoder", String.format("%d",harvester.getCurrentPosition()));
+        telemetry.addData("Harvester Power", String.format("%f",harvester.getPower()));
 
 
 
@@ -258,10 +262,14 @@ float hsvValues[] = {0F, 0F, 0F};
     // move to position method.
     public void moveHarvesterToPosition(float desiredPosition){
         if(desiredPosition - harvester.getCurrentPosition() != 0) {
-            float powerMovement = (desiredPosition - harvester.getCurrentPosition()) / Math.abs(desiredPosition - harvester.getCurrentPosition());
+            float powerMovement = (desiredPosition - harvester.getCurrentPosition()) / Math.abs(desiredPosition - harvester.getCurrentPosition())/2;
             harvester.setPower(powerMovement);
         }else {
-            harvester.setPower(0);
+            if(harvester.getCurrentPosition() > 140){
+                harvester.setPower(0.05);
+            }else {
+                harvester.setPower(0);
+            }
             harvesterIsMoving = false;
         }
 
