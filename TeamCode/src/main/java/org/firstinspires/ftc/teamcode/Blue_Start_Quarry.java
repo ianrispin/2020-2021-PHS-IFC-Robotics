@@ -61,14 +61,16 @@ import java.util.Timer;
 @TeleOp(name="Blue: Start Quarry", group="Linear Opmode")
 //@Disabled
 public class Blue_Start_Quarry extends LinearOpMode {
-
     DcMotor motorFrontRight;
     DcMotor motorFrontLeft;
     DcMotor motorBackRight;
     DcMotor motorBackLeft;
     ColorSensor sensorColor;
-    ColorSensor frontSensor;
+    ColorSensor frontSensorLeft;
+    ColorSensor frontSensorRight;
     DcMotor harvester;
+    DcMotor verticalLift;
+
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F, 0F, 0F};
@@ -83,12 +85,13 @@ public class Blue_Start_Quarry extends LinearOpMode {
     int relativeLayoutId;
     View relativeLayout;
 
+
     MediaPlayer mediaPlayer;
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+//    private DcMotor leftDrive = null;
+//    private DcMotor rightDrive = null;
 
     @Override
     public void runOpMode() {
@@ -98,16 +101,23 @@ public class Blue_Start_Quarry extends LinearOpMode {
         motorFrontLeft = hardwareMap.dcMotor.get("motor front left");
         motorBackLeft = hardwareMap.dcMotor.get("motor back left");
         motorBackRight = hardwareMap.dcMotor.get("motor back right");
+        verticalLift = hardwareMap.dcMotor.get("verticalLift");
+        verticalLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        verticalLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        verticalLift.setPower(0);
         motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        harvester = hardwareMap.dcMotor.get("harvester");
         harvester.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         harvester.setTargetPosition(0);
         harvester.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         harvester.setPower(1);
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
-        frontSensor = hardwareMap.get(ColorSensor.class, "frontSensor");
+        frontSensorRight = hardwareMap.get(ColorSensor.class, "frontSensorRight");
+        frontSensorLeft = hardwareMap.get(ColorSensor.class, "frontSensorLeft");
         relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
         mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.hesapirate);
@@ -134,33 +144,82 @@ public class Blue_Start_Quarry extends LinearOpMode {
 //        sleep(1000);
 //        driveForDistance(0, -1, 0.3);
 //        driveForDistance(-1, 0, 1);
+        driveForDistance(0,1,0.56);
+        sleep(1500);
+//        while(!(getColor(frontSensorLeft)[2] > 22 && getColor(frontSensorLeft)[2] < 40) && opModeIsActive()){
+        while(!(getColor(frontSensorRight)[0] > 210 && getColor(frontSensorRight)[0] < 255)){
+            driveWithInput((float)0.5,0,0);
+        }
+        telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", (getColor(frontSensorLeft)[2])));
+        double distance = ((runtime.time() -50)*0.35)/1000 + 0.16;
+        driveForTime(0,0,0,100);
+        sleep(500);
+        driveForDistance(1,0,0.16);
+        driveForDistance(0,1,0.03);
+        dropHarvester();
+        sleep(1000);
+        verticalLift.setPower(-1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
+        driveForDistance(0, -1, 0.4);
+        driveForDistance(-1, 0, 1.4+distance);
+
+        holdUnderBridge();
+        sleep(1000);
+        driveForDistance(1, 0, 1.4 + distance + 0.6);
+        driveForTime(0,0,0,100);
+        raiseHarvester();
+        sleep(1000);
+        verticalLift.setPower(1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
+        driveForDistance(0, 1, 0.4);
+        dropHarvester();
+        sleep(1000);
+        verticalLift.setPower(-1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
+        driveForDistance(0, -1, 0.4);
+        driveForDistance(-1, 0, 1.5+distance+0.6);
+
+        sleep(1000);
+        verticalLift.setPower(1);
+        sleep(500);
+        verticalLift.setPower(0);
+        sleep(500);
+
+        holdUnderBridge();
+        sleep(1000);
 //
-        driveForDistance(0,1,0.65);
-        dropHarvester();
-        sleep(1000);
-        driveForDistance(0, -1, 0.3);
-        driveForDistance(-1, 0, 1);
-
-        raiseHarvester();
-        sleep(1000);
-        driveForDistance(1, 0, 1.2);
-        driveForDistance(0, 1, 0.3);
-        dropHarvester();
-        sleep(1000);
-        driveForDistance(0, -1, 0.3);
-        driveForDistance(-1, 0, 1.2);
-
-        raiseHarvester();
-        sleep(1000);
-        driveForDistance(1, 0, 1.4);
-        driveForDistance(0, 1, 0.3);
-        dropHarvester();
-        sleep(1000);
-        driveForDistance(0, -1, 0.3);
-        driveForDistance(-1, 0, 1.4);
-
-        raiseHarvester();
-        sleep(1000);
+//        driveForDistance(0,1,0.65);
+//        dropHarvester();
+//        sleep(1000);
+//        driveForDistance(0, -1, 0.3);
+//        driveForDistance(-1, 0, 1);
+//
+//        raiseHarvester();
+//        sleep(1000);
+//        driveForDistance(1, 0, 1.2);
+//        driveForDistance(0, 1, 0.3);
+//        dropHarvester();
+//        sleep(1000);
+//        driveForDistance(0, -1, 0.3);
+//        driveForDistance(-1, 0, 1.2);
+//
+//        raiseHarvester();
+//        sleep(1000);
+//        driveForDistance(1, 0, 1.4);
+//        driveForDistance(0, 1, 0.3);
+//        dropHarvester();
+//        sleep(1000);
+//        driveForDistance(0, -1, 0.3);
+//        driveForDistance(-1, 0, 1.4);
+//
+//        raiseHarvester();
+//        sleep(1000);
 // actual autonomous psudocode
         //runtime.reset();
         //1 second = 80cm
@@ -186,11 +245,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
 
 
-        driveForTime(0,1, 0 , 100);
-
-        while(!(getColor(sensorColor)[0] > 210 && getColor(sensorColor)[0] < 255)){
-            driveWithInput((float)0.5,0,0);
-        }
+        driveForDistance(1,0,.47);
         driveWithInput(0, 0, 0);
         while(opModeIsActive()){}
         mediaPlayer.stop();
@@ -299,6 +354,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
 
 //        whenDone.schedule(new TimerTask());
+        getColor(frontSensorLeft);
     }
 
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
@@ -308,11 +364,12 @@ public class Blue_Start_Quarry extends LinearOpMode {
         long FinalTime = (long)(1000*(distance/finalVelocity));
         driveForTime(powerX, powerY, 0, FinalTime+50);
         driveWithInput(0,0,0);
+        getColor(frontSensorLeft);
     }
     public void dropHarvester(){
         harvester.setTargetPosition(180);
     }
-    public void holdUnderBridge(){ harvester.setTargetPosition(140);}
+    public void holdUnderBridge(){ harvester.setTargetPosition(125);}
     public void raiseHarvester(){
         harvester.setTargetPosition(0);
     }
