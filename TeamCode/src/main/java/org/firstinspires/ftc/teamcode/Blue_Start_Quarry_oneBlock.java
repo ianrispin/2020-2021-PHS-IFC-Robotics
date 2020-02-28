@@ -34,13 +34,11 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.view.View;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import java.util.Timer;
 
@@ -58,9 +56,9 @@ import java.util.Timer;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Blue: Start Quarry", group="Linear Opmode")
+@TeleOp(name="Blue: Start Quarry one block", group="Linear Opmode")
 //@Disabled
-public class Blue_Start_Quarry extends LinearOpMode {
+public class Blue_Start_Quarry_oneBlock extends LinearOpMode {
     DcMotor motorFrontRight;
     DcMotor motorFrontLeft;
     DcMotor motorBackRight;
@@ -167,84 +165,85 @@ public class Blue_Start_Quarry extends LinearOpMode {
 
         holdUnderBridge();
         sleep(1000);
-        driveForDistance(1, 0, 1.4 + distance + 0.6);
-        driveForTime(0, 0, 0, 100);
-        raiseHarvester();
-        sleep(1000);
+//        driveForDistance(1, 0, 1.4 + distance + 0.6);
+//        driveForTime(0, 0, 0, 100);
+//        raiseHarvester();
+//        sleep(1000);
+//        verticalLift.setPower(1);
+//        sleep(500);
+//        verticalLift.setPower(0);
+//        sleep(500);
+//        driveForDistance(0, 1, 0.4);
+//        dropHarvester();
+//        sleep(1000);
+//        verticalLift.setPower(-1);
+//        sleep(500);
+//        verticalLift.setPower(0);
+//        sleep(500);
+//        driveForDistance(0, -1, 0.4);
+//        driveForDistance(-1, 0, 1.5 + distance + 0.6);
+//
+//        sleep(1000);
         verticalLift.setPower(1);
         sleep(500);
         verticalLift.setPower(0);
         sleep(500);
-        driveForDistance(0, 1, 0.4);
-        dropHarvester();
-        sleep(1000);
-        verticalLift.setPower(-1);
-        sleep(500);
-        verticalLift.setPower(0);
-        sleep(500);
-        driveForDistance(0, -1, 0.4);
-        driveForDistance(-1, 0, 1.5 + distance + 0.6);
-
-        sleep(1000);
-        verticalLift.setPower(1);
-        sleep(500);
-        verticalLift.setPower(0);
-        sleep(500);
-
-        holdUnderBridge();
-        sleep(1000);
 //
-//        driveForDistance(0,1,0.65);
-//        dropHarvester();
+//        holdUnderBridge();
 //        sleep(1000);
-//        driveForDistance(0, -1, 0.3);
-//        driveForDistance(-1, 0, 1);
+////
+////        driveForDistance(0,1,0.65);
+////        dropHarvester();
+////        sleep(1000);
+////        driveForDistance(0, -1, 0.3);
+////        driveForDistance(-1, 0, 1);
+////
+////        raiseHarvester();
+////        sleep(1000);
+////        driveForDistance(1, 0, 1.2);
+////        driveForDistance(0, 1, 0.3);
+////        dropHarvester();
+////        sleep(1000);
+////        driveForDistance(0, -1, 0.3);
+////        driveForDistance(-1, 0, 1.2);
+////
+////        raiseHarvester();
+////        sleep(1000);
+////        driveForDistance(1, 0, 1.4);
+////        driveForDistance(0, 1, 0.3);
+////        dropHarvester();
+////        sleep(1000);
+////        driveForDistance(0, -1, 0.3);
+////        driveForDistance(-1, 0, 1.4);
+////
+////        raiseHarvester();
+////        sleep(1000);
+//// actual autonomous psudocode
+//        //runtime.reset();
+//        //1 second = 80cm
+////         driveForTime(0,1, 0 , 1.2);
+//        //current code 12/14/19
+////        driveForDistance(0,1,0.5);
+////        while(!(getColor(frontSensor)[2] < 15)){
+////        driveWithInput(-(float)0.25,0,0);
+////        }
+////        double distance = (0.4)*runtime.time();
+////        driveForDistance(0,1,0.05);
+////        dropHarvester();
+////        driveForDistance(0,-1,0.1);
+////        driveForDistance(1,0,distance + 0.7);
+////        raiseHarvester();
+////        driveForDistance(-1,0, 0.7 + distance + .62);
+////         driveForDistance(0,1,0.1);
+////        dropHarvester();
+////        driveForDistance(0,-1,0.1);
+////        driveForDistance(1,0,0.7 + distance + .8);
+////        raiseHarvester();
+//        //move to tape
 //
-//        raiseHarvester();
-//        sleep(1000);
-//        driveForDistance(1, 0, 1.2);
-//        driveForDistance(0, 1, 0.3);
-//        dropHarvester();
-//        sleep(1000);
-//        driveForDistance(0, -1, 0.3);
-//        driveForDistance(-1, 0, 1.2);
-//
-//        raiseHarvester();
-//        sleep(1000);
-//        driveForDistance(1, 0, 1.4);
-//        driveForDistance(0, 1, 0.3);
-//        dropHarvester();
-//        sleep(1000);
-//        driveForDistance(0, -1, 0.3);
-//        driveForDistance(-1, 0, 1.4);
-//
-//        raiseHarvester();
-//        sleep(1000);
-// actual autonomous psudocode
-        //runtime.reset();
-        //1 second = 80cm
-//         driveForTime(0,1, 0 , 1.2);
-        //current code 12/14/19
-//        driveForDistance(0,1,0.5);
-//        while(!(getColor(frontSensor)[2] < 15)){
-//        driveWithInput(-(float)0.25,0,0);
-//        }
-//        double distance = (0.4)*runtime.time();
-//        driveForDistance(0,1,0.05);
-//        dropHarvester();
-//        driveForDistance(0,-1,0.1);
-//        driveForDistance(1,0,distance + 0.7);
-//        raiseHarvester();
-//        driveForDistance(-1,0, 0.7 + distance + .62);
-//         driveForDistance(0,1,0.1);
-//        dropHarvester();
-//        driveForDistance(0,-1,0.1);
-//        driveForDistance(1,0,0.7 + distance + .8);
-//        raiseHarvester();
-        //move to tape
 
-
-        driveForDistance(1, 0, .47);
+        driveForDistance(1, 0, .7);
+        driveForDistance(0,1,0.2);
         driveWithInput(0, 0, 0);
         while (opModeIsActive()) {
         }
@@ -359,8 +358,8 @@ public class Blue_Start_Quarry extends LinearOpMode {
         double speed = powerX + powerY;
         double finalVelocity = Math.abs(velocity * speed);
         long FinalTime = (long) (1000 * (distance / finalVelocity));
-//        driveForTime(powerX, powerY, 0, FinalTime + 50);
         driveForTime(powerX, powerY, 0, FinalTime);
+//        driveForTime(powerX, powerY, 0, FinalTime + 50);
         driveWithInput(0, 0, 0);
         getColor(frontSensorLeft);
     }
