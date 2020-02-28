@@ -348,7 +348,8 @@ public class Red_Start_Quarry extends LinearOpMode {
         double speed = powerX + powerY;
         double finalVelocity = Math.abs(velocity * speed);
         long FinalTime = (long)(1000*(distance/finalVelocity));
-        driveForTime(powerX, powerY, 0, FinalTime+50);
+//        driveForTime(powerX, powerY, 0, FinalTime+50);
+        driveForTime(powerX, powerY, 0, FinalTime);
         driveWithInput(0,0,0);
         getColor(frontSensorLeft);
     }

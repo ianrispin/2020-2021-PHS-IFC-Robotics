@@ -144,18 +144,18 @@ public class Blue_Start_Quarry extends LinearOpMode {
 //        sleep(1000);
 //        driveForDistance(0, -1, 0.3);
 //        driveForDistance(-1, 0, 1);
-        driveForDistance(0,1,0.56);
+        driveForDistance(0, 1, 0.56);
         sleep(1500);
 //        while(!(getColor(frontSensorLeft)[2] > 22 && getColor(frontSensorLeft)[2] < 40) && opModeIsActive()){
-        while(!(getColor(frontSensorRight)[0] > 210 && getColor(frontSensorRight)[0] < 255)){
-            driveWithInput((float)0.5,0,0);
+        while (!(getColor(frontSensorRight)[0] > 80)) {
+            driveWithInput((float) 0.5, 0, 0);
         }
         telemetry.addData("f left pwr", "front left  pwr: " + String.format("%.2f", (getColor(frontSensorLeft)[2])));
-        double distance = ((runtime.time() -50)*0.35)/1000 + 0.16;
-        driveForTime(0,0,0,100);
+        double distance = ((runtime.time() - 50) * 0.35) / 1000 + 0.16;
+        driveForTime(0, 0, 0, 100);
         sleep(500);
-        driveForDistance(1,0,0.16);
-        driveForDistance(0,1,0.03);
+        driveForDistance(1, 0, 0.16);
+        driveForDistance(0, 1, 0.03);
         dropHarvester();
         sleep(1000);
         verticalLift.setPower(-1);
@@ -163,12 +163,12 @@ public class Blue_Start_Quarry extends LinearOpMode {
         verticalLift.setPower(0);
         sleep(500);
         driveForDistance(0, -1, 0.4);
-        driveForDistance(-1, 0, 1.4+distance);
+        driveForDistance(-1, 0, 1.4 + distance);
 
         holdUnderBridge();
         sleep(1000);
         driveForDistance(1, 0, 1.4 + distance + 0.6);
-        driveForTime(0,0,0,100);
+        driveForTime(0, 0, 0, 100);
         raiseHarvester();
         sleep(1000);
         verticalLift.setPower(1);
@@ -183,7 +183,7 @@ public class Blue_Start_Quarry extends LinearOpMode {
         verticalLift.setPower(0);
         sleep(500);
         driveForDistance(0, -1, 0.4);
-        driveForDistance(-1, 0, 1.5+distance+0.6);
+        driveForDistance(-1, 0, 1.5 + distance + 0.6);
 
         sleep(1000);
         verticalLift.setPower(1);
@@ -244,17 +244,11 @@ public class Blue_Start_Quarry extends LinearOpMode {
         //move to tape
 
 
-
-        driveForDistance(1,0,.47);
+        driveForDistance(1, 0, .47);
         driveWithInput(0, 0, 0);
-        while(opModeIsActive()){}
+        while (opModeIsActive()) {
+        }
         mediaPlayer.stop();
-
-
-
-
-
-
 
 
         // run until the end of the match (driver presses STOP)
@@ -308,7 +302,8 @@ public class Blue_Start_Quarry extends LinearOpMode {
         });
         return hsvValues;
     }
-    public void driveWithInput(float directionX,float directionY,float rotation){//direction refers to values that would be seen on a gamepad.
+
+    public void driveWithInput(float directionX, float directionY, float rotation) {//direction refers to values that would be seen on a gamepad.
         float FrontLeft = -directionY - directionX - rotation;
         float FrontRight = directionY - directionX - rotation;
         float BackRight = directionY + directionX - rotation;
@@ -337,9 +332,11 @@ public class Blue_Start_Quarry extends LinearOpMode {
         telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
         telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
+        getColor(frontSensorLeft);
 
     }
-    public void driveForTime ( float directionX, float directionY, float rotation, long moveDuration){//going to optomise this to make it better for turning
+
+    public void driveForTime(float directionX, float directionY, float rotation, long moveDuration) {//going to optomise this to make it better for turning
 
         Timer whenDone = new Timer();
 
@@ -350,29 +347,36 @@ public class Blue_Start_Quarry extends LinearOpMode {
             driveWithInput(directionX, directionY, rotation);
 
         }
-        driveWithInput(0,0,0);
+        driveWithInput(0, 0, 0);
 
 
 //        whenDone.schedule(new TimerTask());
         getColor(frontSensorLeft);
     }
 
-    public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
+    public void driveForDistance(float powerX, float powerY, double distance) {//right now, only for lateral directions
         double velocity = 0.7;
         double speed = powerX + powerY;
         double finalVelocity = Math.abs(velocity * speed);
-        long FinalTime = (long)(1000*(distance/finalVelocity));
-        driveForTime(powerX, powerY, 0, FinalTime+50);
-        driveWithInput(0,0,0);
+        long FinalTime = (long) (1000 * (distance / finalVelocity));
+//        driveForTime(powerX, powerY, 0, FinalTime + 50);
+        driveForTime(powerX, powerY, 0, FinalTime);
+        driveWithInput(0, 0, 0);
         getColor(frontSensorLeft);
     }
-    public void dropHarvester(){
+
+    public void dropHarvester() {
         harvester.setTargetPosition(180);
     }
-    public void holdUnderBridge(){ harvester.setTargetPosition(125);}
-    public void raiseHarvester(){
+
+    public void holdUnderBridge() {
+        harvester.setTargetPosition(125);
+    }
+
+    public void raiseHarvester() {
         harvester.setTargetPosition(0);
     }
+
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                 0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
