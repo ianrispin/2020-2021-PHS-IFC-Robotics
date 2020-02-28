@@ -322,7 +322,7 @@ public class Red_Start_Quarry extends LinearOpMode {
         telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
         telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
         telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
-        getColor(frontSensorLeft);
+        getColor(sensorColor);
 
     }
     public void driveForTime ( float directionX, float directionY, float rotation, long moveDuration){//going to optomise this to make it better for turning
@@ -340,7 +340,7 @@ public class Red_Start_Quarry extends LinearOpMode {
 
 
 //        whenDone.schedule(new TimerTask());
-        getColor(frontSensorLeft);
+        getColor(sensorColor);
     }
 
     public void driveForDistance(float powerX, float powerY, double distance){//right now, only for lateral directions
@@ -351,7 +351,7 @@ public class Red_Start_Quarry extends LinearOpMode {
 //        driveForTime(powerX, powerY, 0, FinalTime+50);
         driveForTime(powerX, powerY, 0, FinalTime);
         driveWithInput(0,0,0);
-        getColor(frontSensorLeft);
+        getColor(sensorColor);
     }
     public void dropHarvester(){
             harvester.setTargetPosition(180);
