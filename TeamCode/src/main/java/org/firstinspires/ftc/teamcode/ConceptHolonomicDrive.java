@@ -180,7 +180,7 @@ float hsvValues[] = {0F, 0F, 0F};
             }
         } else if (gamepad1.y) {
 //            driveWithInput(0, 1, 0);
-            foundColor = getColor(frontSensorRight)[0] + " " + getColor(frontSensorRight)[1] + " " + getColor(frontSensorRight)[2];
+            foundColor = getColor(sensorColor)[0] + " " + getColor(sensorColor)[1] + " " + getColor(sensorColor)[2];
         } else if (gamepad1.x) {
             if(harvestMode == "POS"){
                 harvestMode = "MV";
@@ -262,11 +262,11 @@ float hsvValues[] = {0F, 0F, 0F};
     // move to position method.
     public void moveHarvesterToPosition(float desiredPosition){
         if(desiredPosition - harvester.getCurrentPosition() != 0) {
-            float powerMovement = (desiredPosition - harvester.getCurrentPosition()) / Math.abs(desiredPosition - harvester.getCurrentPosition());
+            float powerMovement = (desiredPosition - harvester.getCurrentPosition()) / Math.abs(desiredPosition - harvester.getCurrentPosition())/2;
             harvester.setPower(powerMovement);
         }else {
             if(harvester.getCurrentPosition() > 140){
-                harvester.setPower(0.1);
+                harvester.setPower(0.05);
             }else {
                 harvester.setPower(0);
             }
